@@ -34,7 +34,8 @@ public class MapActivity extends AbstractMapActivity  implements OnMapReadyCallb
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-         currentLocation = (LatLng)getIntent().getParcelableExtra("currentLocation");
+        currentLocation = (LatLng)getIntent().getParcelableExtra("currentLocation");
+        toPosition = currentLocation;
         setContentView(R.layout.activity_map);
         pickLocationButton = (Button) findViewById(R.id.pick_location);
         pickLocationButton.setOnClickListener(new View.OnClickListener() {
