@@ -69,7 +69,8 @@ public class StartActivity extends FragmentActivity {
 
                 } else {
                     greeting.setText("You are not logged in.");
-                    launchBtn.setVisibility(View.INVISIBLE);
+                    //todo get the fb working
+                    //launchBtn.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -82,6 +83,8 @@ public class StartActivity extends FragmentActivity {
             if (state.isOpened()) {
                 Log.d("MainActivity", "Facebook session opened.");
             } else if (state.isClosed()) {
+                Log.d("MainActivity",state.toString());
+                Log.d("MainActivity",exception.getMessage());
                 Log.d("MainActivity", "Facebook session closed.");
             }
         }
@@ -97,7 +100,8 @@ public class StartActivity extends FragmentActivity {
     public void btnLaunchClick(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(EXTRA_MESSAGE, "from Start screen");
-        intent.putExtra(FB_ID,currentUser.getName() );
+        //intent.putExtra(FB_ID,currentUser.getName() );
+        intent.putExtra(FB_ID,"Ashley George");
         startActivity(intent);
     }
 

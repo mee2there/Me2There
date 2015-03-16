@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     xmlns:card="http://schemas.android.com/apk/res-auto" >
-
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,30 +11,23 @@
         android:id="@+id/btnOrganize"
         android:background="#ff3b8cff"
         android:layout_alignParentTop="true"
-        android:theme="@style/Base.TextAppearance.AppCompat.Button" />
-
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:textAppearance="?android:attr/textAppearanceLarge"
-
+        style="@style/CustomFontStyle.MediumFont.Blue"
         android:text="Activity Feed"
         android:id="@+id/textView"
         android:layout_marginTop="33dp"
-
         android:layout_below="@+id/btnOrganize"
         android:layout_centerHorizontal="true" />
-
     <it.gmariotti.cardslib.library.view.CardListView
-         android:id="@+id/activityList"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
+        android:id="@+id/activityList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         card:list_card_layout_resourceID="@layout/list_card_thumbnail_layout"
-         style="@style/list_card.thumbnail"
+        style="@style/list_card.thumbnail"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp" />
-
-
 </RelativeLayout>

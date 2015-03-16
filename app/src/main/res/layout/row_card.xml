@@ -10,13 +10,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@style/CustomFontStyle.MediumFont.Blue"/>
 
     <TextView
         android:id="@+id/card_main_inner_secondary_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Location"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        style="@style/CustomFontStyle.SmallFont.Black"/>
 
+    <RatingBar
+        android:id="@+id/card_main_inner_ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="4"
+        android:stepSize="1.0"
+        android:rating="2.0" />
+
+    <com.google.android.gms.maps.MapView android:id="@+id/mapview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 </LinearLayout>

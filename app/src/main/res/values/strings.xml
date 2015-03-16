@@ -14,5 +14,15 @@
     <string name="title_activity_start">StartActivity</string>
     <string name="title_activity_launch">LaunchActivity</string>
     <string name="title_activity_signup">SignupActivity</string>
+    <string name="title_activity_event_detail">EventDetail</string>
+    <string name="title_activity_create">CreateActivity</string>
+    <string name="activity_title">Title</string>
+    <string name="activity_desc">Description</string>
+    <string name="activity_location">Select Location</string>
+    <string name="upload_picture">Image</string>
+    <string name="create_activity">Create</string>
+    <string name="no_maps">Google Maps V2 not available!</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="pick_location">Location</string>
 
 </resources>
