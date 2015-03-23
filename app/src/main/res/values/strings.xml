@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">me2there</string>
+    <string name="app_name">Me2There</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_card_list">CardListActivity</string>
@@ -14,8 +14,8 @@
     <string name="title_activity_start">StartActivity</string>
     <string name="title_activity_launch">LaunchActivity</string>
     <string name="title_activity_signup">SignupActivity</string>
-    <string name="title_activity_event_detail">EventDetail</string>
-    <string name="title_activity_create">CreateActivity</string>
+    <string name="title_activity_event_detail">Activity Detail</string>
+    <string name="title_activity_create">New Activity</string>
     <string name="activity_title">Title</string>
     <string name="activity_desc">Description</string>
     <string name="activity_location">Select Location</string>
@@ -24,5 +24,11 @@
     <string name="no_maps">Google Maps V2 not available!</string>
     <string name="title_activity_map">MapActivity</string>
     <string name="pick_location">Location</string>
-
+    <string name="pick_date">Set Date</string>
+    <string name="login">enter</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="profile">Edit Profile</string>
+    <string name="action_search">search</string>
+    <string name="create_new">New Actvity</string>
 </resources>

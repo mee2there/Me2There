@@ -1,12 +1,10 @@
 package com.innovation.me2there;
 
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -61,9 +59,11 @@ public class DataStore {
         try {
             activityDB = task.get();
         }catch(ExecutionException e){
-            Log.i("DataStore",""+e.getMessage());
+            Log.i("DataStore", "Init" + e.getMessage());
         }catch(InterruptedException i){
-            Log.i("DataStore",""+i.getMessage());
+            Log.i("DataStore", "Init" + i.getMessage());
+        } catch (Exception e0) {
+            Log.i("DataStore", "Init" + e0.getMessage());
         }
     }
 
@@ -77,7 +77,8 @@ public class DataStore {
                 boolean insertResult = activityDB.insertEvent(eventToCreate.getEventName(),
                                                               eventToCreate.getEventDesc(),
                                                               eventToCreate.getEventTime(),
-                                                              eventToCreate.getEventLocAsArray()
+                        eventToCreate.getEventLocAsArray(),
+                        eventToCreate.getEventImageID()
                                                               );
                 return activityDB.getEvents(eventToCreate.getEventLocAsArray()[0], eventToCreate.getEventLocAsArray()[1]);
             }
@@ -87,12 +88,66 @@ public class DataStore {
         try {
             _allEvents = task.get();
         }catch(ExecutionException e){
-
-        }catch(InterruptedException i){
-
-        }
+            Log.i("DataStore", "insertActivity" + e.getMessage());
+        } catch (InterruptedException i) {
+            Log.i("DataStore", "insertActivity" + i.getMessage());
+        } catch (Exception e0) {
+            Log.i("DataStore", "insertActivity" + e0.getMessage());
         }
      }
+
+    public static String uploadImage(Bitmap toUpdate, String infileName) {
+        final String fileName = infileName;
+        AsyncTask<Bitmap, Void, String> task = new AsyncTask<Bitmap, Void, String>() {
+
+            @Override
+            protected String doInBackground(Bitmap... images) {
+                Bitmap imageToUpload = images[0];
+                // Put in code over here that does the network related operations.
+                return activityDB.storeImage(imageToUpload, fileName);
+
+            }
+
+        };
+        task.execute(toUpdate);
+        try {
+            return task.get();
+        } catch (ExecutionException e) {
+            Log.i("DataStore ", "uploadImage" + e.getMessage());
+        }catch(InterruptedException i){
+            Log.i("DataStore", "uploadImage" + i.getMessage());
+        } catch (Exception e0) {
+            Log.i("DataStore", "uploadImage" + e0.getMessage());
+        }
+        return null;
+    }
+
+    public static Bitmap downloadImage(String imageToGet) {
+        Bitmap downloadedImage = null;
+        AsyncTask<String, Void, Bitmap> task = new AsyncTask<String, Void, Bitmap>() {
+
+            @Override
+            protected Bitmap doInBackground(String... imagesToGet) {
+                Log.i("DataStore", "Download image" + imagesToGet[0]);
+                // Put in code over here that does the network related operations.
+                return activityDB.getImage(imagesToGet[0]);
+
+            }
+
+        };
+        task.execute(imageToGet);
+        try {
+            downloadedImage = task.get();
+        } catch (ExecutionException e) {
+            Log.i("DataStore", "downloadImage" + e.getMessage());
+        } catch (InterruptedException i) {
+            Log.i("DataStore", "downloadImage" + i.getMessage());
+        } catch (Exception e0) {
+            Log.i("DataStore", "downloadImage" + e0.getMessage());
+        }
+        return downloadedImage;
+    }
+}
 
 
 

@@ -8,13 +8,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.innovation.me2there.EventDetailVO;
 
 
 public class EventDetail extends Activity {
-
 
 
     @Override
@@ -30,7 +28,7 @@ public class EventDetail extends Activity {
 
         Bundle newBundle = new Bundle();
         //newBundle.putLong("selectedID",inBundle.getLong("selectedID"));
-        newBundle.putParcelable("event_detail",inBundle.getParcelable("event_detail"));
+        newBundle.putParcelable("event_detail", inBundle.getParcelable("event_detail"));
         detailFragment.setArguments(newBundle);
 
         if (savedInstanceState == null) {
@@ -86,6 +84,8 @@ public class EventDetail extends Activity {
 
             TextView dateTextView = ((TextView) rootView.findViewById(R.id.event_time));
             dateTextView.setText(event.getEventTime().toString());
+            ImageView activityImage = (ImageView) rootView.findViewById(R.id.activity_image);
+            activityImage.setImageBitmap(event.getEventImage());
             return rootView;
         }
     }

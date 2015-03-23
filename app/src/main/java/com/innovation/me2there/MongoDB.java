@@ -1,16 +1,20 @@
 package com.innovation.me2there;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
-import com.google.android.gms.internal.lo;
-import com.google.android.gms.maps.model.LatLng;
-import com.innovation.me2there.EventDetailVO;
-import com.mongodb.*;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.gridfs.GridFS;
 import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSInputFile;
 
-import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,6 +28,8 @@ public class MongoDB {
 
     private DBCollection eventCollection;
     private DB db;
+    private GridFS fs;
+
     private Double defaultMaxDistance = 0.10;
     public MongoDB(){
         //final BasicDBObject[] seedData = createSeedData();
@@ -49,6 +55,8 @@ public class MongoDB {
             eventCollection.createIndex(new BasicDBObject("loc", "2d"), "geospacialIdx");
 
             Log.i("connectDB","after eventCollection : "+eventCollection.toString());
+
+            fs = new GridFS(db);
         }catch (UnknownHostException unknownHost) {
             Log.e("connectDB","Exception : "+unknownHost.getMessage());
 
@@ -58,16 +66,16 @@ public class MongoDB {
     public boolean insertEvent(String eventName,
                                String eventDesc,
                                Date eventDate,
-                               double[] location
+                               double[] location,
+                               Object imageID
     ) {
         BasicDBObject newEvent = new BasicDBObject();
         newEvent.put("name", eventName);
         newEvent.put("description", eventDesc);
         newEvent.put("date", eventDate);
+        newEvent.put("imageId", imageID);
 
-//        BasicDBObject location = new BasicDBObject();
-//       location.put("x", xCoordinate);
-//        location.put("y", yCoordinate);
+
         newEvent.put("loc", location);
 
         eventCollection.insert(newEvent);
@@ -93,8 +101,9 @@ public class MongoDB {
             eventVOList.add(new EventDetailVO(index,
                                               dbObject.getString("name") ,
                                               dbObject.getString("description"),
-                                              dbObject.getDate("date")//,
-                                              //latLngObj
+                    dbObject.getDate("date"),
+                    null,
+                    dbObject.get("imageId").toString()
                                               ));
             index++;
         }
@@ -107,7 +116,7 @@ public class MongoDB {
         //filter.put("$maxDistance", 0.01);
         //filter.put("$maxDistance", maxDistance);
         final BasicDBObject query = new BasicDBObject("loc", filterNearMe);
-        return eventCollection.find(query).toArray();
+        return eventCollection.find(query).limit(10).toArray();
 
 
     }
@@ -240,7 +249,7 @@ public class MongoDB {
         return seedData;
     }
 
-    private void addEvents() {
+    /*private void addEvents() {
         insertEvent("Hiking","Big time hiking",new Date(),new double[] {43.7048247, -79.3497419});
         insertEvent("Skiing","Big time hiking",new Date(),new double[] {43.7148218, -79.3580521});
         insertEvent("Bowling","Big time hiking",new Date(),new double[] {43.7466070, -79.4105959});
@@ -252,7 +261,7 @@ public class MongoDB {
         insertEvent("Baseball","Big time hiking",new Date(),new double[] {43.7117130, -79.4217445});
         insertEvent("Tennis","Big time hiking",new Date(),new double[] {43.7356264, -79.3998228});
         insertEvent("Fishing","Big time hiking",new Date(),new double[] {43.7337591, -79.4042867});
-    }
+    }*/
 
     private void addVenue(  final String pName,
                             final double [] pLocation)
@@ -274,24 +283,32 @@ public class MongoDB {
     }
 
 
-    /*public boolean storeImage(){
-        //Load our image
-        byte[] imageBytes = LoadImage("C:/Temp/bear.bmp");
+    public String storeImage(Bitmap inBitmap, String fileName) {
 
-        //Create GridFS object
-        GridFS fs = new GridFS( db );
+        //Load our image
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        inBitmap.compress(Bitmap.CompressFormat.JPEG, 75, bos);
+        byte[] imageBytes = bos.toByteArray();
         //Save image into database
         GridFSInputFile in = fs.createFile( imageBytes );
+        in.setFilename(fileName);
         in.save();
+        Log.i("MongoDb", "Stored Image and generated Id " + in.getId());
+        return in.getId().toString();
+    }
 
-        //Find saved image
-        GridFSDBFile out = fs.findOne( new BasicDBObject( "_id" , in.getId() ) );
+    public Bitmap getImage(String forID) {
+        try {
+            //Find saved image
+            GridFSDBFile out = fs.findOne(forID);
+            Log.i("MongoDb", "Retrieved Image and with Id " + out.getId());
+            Bitmap imageBitMap = BitmapFactory.decodeStream(out.getInputStream());
+            return imageBitMap;
+        } catch (Exception e) {
 
-        //Save loaded image from database into new image file
-        FileOutputStream outputImage = new FileOutputStream("C:/Temp/bearCopy.bmp");
-        out.writeTo( outputImage );
-        outputImage.close();
-    }*/
+        }
+        return null;
+    }
 
 
 }

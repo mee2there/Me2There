@@ -10,7 +10,7 @@
     tools:context="firstapp.ashley.com.firstapp.EventDetail$PlaceholderFragment">
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/activity_image"
         android:layout_width="122px"
         android:layout_height="122px"
         android:layout_marginLeft="4px"

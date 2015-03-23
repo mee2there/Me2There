@@ -1,18 +1,19 @@
 package com.innovation.me2there;
 
+
+import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -24,16 +25,14 @@ import java.util.List;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
-import it.gmariotti.cardslib.library.internal.CardExpand;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.internal.CardThumbnail;
-import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
 import it.gmariotti.cardslib.library.view.CardListView;
-import it.gmariotti.cardslib.library.view.CardView;
+
+//import android.support.v7.app.ActionBar;
 
 public class MainActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener{
+        GoogleApiClient.OnConnectionFailedListener,
+        ActionBar.TabListener {
 
     private static DataStore mee2ThereDataStore;
     private GoogleApiClient mGoogleApiClient;
@@ -44,7 +43,7 @@ public class MainActivity extends Activity implements
     private boolean mResolvingError = false;
     // Request code to use when launching the resolution activity
     private static final int REQUEST_RESOLVE_ERROR = 1001;
-
+    public static float densityMultiplier;
     @Override
     protected void onStart() {
         super.onStart();
@@ -57,11 +56,22 @@ public class MainActivity extends Activity implements
         buildGoogleApiClient();
 		setContentView(R.layout.activity_main);
 
-
+        densityMultiplier = getApplicationContext().getResources().getDisplayMetrics().density;
         Intent intent = getIntent();
         String message = intent.getStringExtra(StartActivity.EXTRA_MESSAGE);
         String facebookId =intent.getStringExtra(StartActivity.FB_ID);
-        Button createButton = (Button) findViewById(R.id.btnOrganize);
+
+        // Set up the action bar.
+        //final ActionBar actionBar = getSupportActionBar();
+        final ActionBar actionBar = getActionBar();
+        // Specify that the Home/Up button should not be enabled, since there is no hierarchical
+        // parent.
+        // actionBar.setHomeButtonEnabled(false);
+
+        // Specify that we will be displaying tabs in the action bar.
+        //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        TextView createButton = (TextView) findViewById(R.id.btnOrganize);
+        createButton.setKeyListener(null);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,4 +173,81 @@ public class MainActivity extends Activity implements
 
     }
 
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        // Handle presses on the action bar items
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                //openSearch();
+                return true;
+//            case R.id.action_login:
+//                intent = new Intent(this,FirstActivity.class);
+//                startActivity(intent);
+//                return true;
+//            case R.id.action_logout:
+//                loggedInUser = null;
+//                invalidateOptionsMenu();
+//                return true;
+//            case R.id.action_profile:
+//                intent = new Intent(this,EditProfile.class);
+//                startActivity(intent);
+//                return true;
+//            case R.id.action_settings:
+//                intent = new Intent(this,Settings.class);
+//                startActivity(intent);
+//                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.actions_bar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem loginItem = menu.findItem(R.id.action_login);
+        MenuItem logoutItem = menu.findItem(R.id.action_logout);
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+/*
+        if(loggedInUser != null && ! loggedInUser.isEmpty()){
+            Log.i("Main Activity","Login item"+loginItem.toString()+"onPrepareOptionsMenu : "+loggedInUser);
+            loginItem.setVisible(false);
+            logoutItem.setVisible(true);
+            profileItem.setVisible(true);
+        }else {
+            loginItem.setVisible(true);
+            logoutItem.setVisible(false);
+            profileItem.setVisible(false);
+        }
+*/
+        return true;
+
+    }
 }
