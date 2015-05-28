@@ -2,13 +2,13 @@ package com.innovation.me2there;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import java.util.Date;
 
 public  class UserEntity implements Parcelable{
 
     private String _userID;
     private String _userName;
     private String _locationDetails;
+    private String _preference;
 
     public String getUserID() {
         return _userID;
@@ -23,21 +23,28 @@ public  class UserEntity implements Parcelable{
     }
 
 
-    public UserEntity(String userId,String userName, String locationDetails) {
+    public String getPreference() {
+        return _preference;
+    }
+
+
+    public UserEntity(String userId, String userName, String locationDetails, String preference) {
         _userID = userId;
         _userName = userName;
         _locationDetails = locationDetails;
+        _preference = preference;
 
     }
 
     public UserEntity(Parcel in){
-        String[] data = new String[3];
+        String[] data = new String[4];
 
 
         in.readStringArray(data);
         this._userID = data[0];
         this._userName = data[1];
-        this._locationDetails = data[1];
+        this._locationDetails = data[2];
+        this._preference = data[3];
     }
 
     @Override
@@ -49,7 +56,7 @@ public  class UserEntity implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
 
         parcel.writeStringArray(new String[] {this._userID,
-                this._userName,this._locationDetails});
+                this._userName, this._locationDetails, this._preference});
 
 
 

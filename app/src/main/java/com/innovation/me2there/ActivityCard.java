@@ -2,17 +2,17 @@ package com.innovation.me2there;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
 
 /**
@@ -22,8 +22,10 @@ public class ActivityCard  extends Card {
 
 
     protected TextView mTitle;
+    protected TextView mDesc;
+    protected TextView mFontPic1, mFontPic2, mFontPic3;
     protected TextView mSecondaryTitle;
-    protected RatingBar mRatingBar;
+    protected TextView mPhone;
     protected EventDetailVO mActivity;
     protected ImageView mImage;
     int listImages[] = new int[]{R.drawable.meetup_1, R.drawable.meetup_2,
@@ -68,13 +70,13 @@ public class ActivityCard  extends Card {
         setOnClickListener(new OnCardClickListener() {
             @Override
             public void onClick(Card card, View view) {
-                //Log.i("FragmentList", "Item clicked: " + id);
                 Intent intent = new Intent(getContext(), EventDetail.class);
                 Bundle b = new Bundle();
-                b.putParcelable("event_detail",mActivity);
+                Log.i("ActivityCard", "init: " + mActivity.getEventID());
+                //b.putInt("eventId", mActivity.getEventID());
+                //b.putParcelable("event_detail",mActivity);
                 //b.putLong("selectedID", id); //Your id
-                intent.putExtras(b); //Put your id to your next Intent
-
+                intent.putExtra("eventId", mActivity.getEventID()); //Put your id to your next Intent
                 getContext().startActivity(intent);
             }
         });
@@ -84,42 +86,49 @@ public class ActivityCard  extends Card {
     public void setupInnerViewElements(ViewGroup parent, View view) {
 
         //Retrieve elements
+        mFontPic1 = (TextView) parent.findViewById(R.id.card_main_font_pic1);
+        mFontPic2 = (TextView) parent.findViewById(R.id.card_main_font_pic2);
+        //mFontPic3 = (TextView) parent.findViewById(R.id.card_main_font_pic3);
+        AssetManager mngr = getContext().getAssets();
+        Typeface font = Typeface.createFromAsset(mngr, "fontello.ttf");
+
+        mFontPic1.setTypeface(font);
+        mFontPic1.setText("\ue802");
+        mFontPic2.setTypeface(font);
+        mFontPic2.setText("\ue814");
+//        mFontPic3.setTypeface(font);
+//        mFontPic3.setText("\ue804");
+
         mTitle = (TextView) parent.findViewById(R.id.card_main_inner_simple_title);
+        //mDesc = (TextView) parent.findViewById(R.id.card_main_inner_desc);
         mSecondaryTitle = (TextView) parent.findViewById(R.id.card_main_inner_secondary_title);
-        mRatingBar = (RatingBar) parent.findViewById(R.id.card_main_inner_ratingBar);
+        //mPhone = (TextView) parent.findViewById(R.id.card_main_phone);
         mImage = (ImageView) parent.findViewById(R.id.card_main_inner_image);
 
-        if (mTitle!=null)
-            mTitle.setText(mActivity.getEventDesc());
 
-        if (mSecondaryTitle!=null)
-            mSecondaryTitle.setText(mActivity.getEventTime().toString());
-        int rating = ( mActivity.getEventID()%5);
-
-        if (mRatingBar!=null) {
-            mRatingBar.setNumStars(rating);
-            mRatingBar.setMax(5);
-            mRatingBar.setRating(4.7f);
+        if (mTitle != null) {
+            mTitle.setText(mActivity.getEventName());
+        }
+        if (mDesc != null) {
+            mDesc.setText(mActivity.getEventDesc());
+        }
+        if (mSecondaryTitle != null) {
+            mSecondaryTitle.setText(mActivity.getEventTimeSimpleFormat());
         }
         // Create a CardHeader
-        CardHeader headerItem = new CardHeader(getContext());
+        //CardHeader headerItem = new CardHeader(getContext());
         // Add Header to card
-        headerItem.setTitle(mActivity.getEventName());
+        //headerItem.setTitle(mActivity.getEventName());
 
-        this.addCardHeader(headerItem);
+        //this.addCardHeader(headerItem);
 
         CardThumbnail thumbItem = new CardThumbnail(getContext());
-        Bitmap eventImage = mActivity.getEventImage();
-        if (eventImage == null) {
-            thumbItem.setDrawableResource(listImages[rating]);
-        } else {
-            //thumbItem.applyBitmap(view,eventImage);
+        Bitmap eventImage = mActivity.getThumbNailEventImage();
+        if (eventImage != null) {
+
             mImage.setImageBitmap(eventImage);
 
         }
 
-        //thumbItem.setDrawableResource(listImages[rating]);
-        //this.addCardThumbnail(thumbItem);
-        Log.i("Activity Card",""+rating);
     }
 }

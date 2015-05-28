@@ -1,37 +1,90 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     tools:context="firstapp.ashley.com.firstapp.EventDetail$PlaceholderFragment">
-
-    <ImageView
-        android:id="@+id/activity_image"
-        android:layout_width="122px"
-        android:layout_height="122px"
-        android:layout_marginLeft="4px"
-        android:layout_marginRight="10px"
-        android:layout_marginTop="4px"
-        android:src="@drawable/ic_launcher" >
-    </ImageView>
 
     <TextView
         android:id="@+id/event_name"
         android:text="@string/hello_world"
-        style="@style/CustomFontStyle.LargeFont.Blue" />
+        android:layout_margin="15dp"
+        style="@style/TextViewDefaultStyle.Blue.Heading" />
+
+    <ImageView
+        android:id="@+id/activity_image"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher" />
 
     <TextView
         android:id="@+id/event_desc"
         android:text="@string/hello_world"
-        style="@style/CustomFontStyle.MediumFont.Black"/>
+        style="@style/TextViewDefaultStyle.Grey.Heading" />
 
     <TextView
         android:id="@+id/event_time"
         android:text="@string/hello_world"
-        style="@style/CustomFontStyle.SmallFont.Black" />
+        style="@style/TextViewDefaultStyle.Black.Heading" />
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            style="@style/CircleStyle.Blue">
+
+            <TextView
+                android:id="@+id/chat_font_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                style="@style/TextViewDefaultStyle.White.Heading" />
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            style="@style/CircleStyle.Blue">
+
+            <TextView
+                android:id="@+id/card_main_font_pic2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                style="@style/TextViewDefaultStyle.White.Heading" />
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+
+            style="@style/CircleStyle.Blue">
+
+            <TextView
+                android:id="@+id/card_main_font_pic3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                style="@style/TextViewDefaultStyle.White.Heading" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/card_main_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            style="@style/TextViewDefaultStyle.Black.Heading" />
+    </LinearLayout>
 </LinearLayout>

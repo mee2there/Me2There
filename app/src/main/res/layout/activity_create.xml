@@ -1,70 +1,122 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity">
+    android:id="@+id/container"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="firstapp.ashley.com.firstapp.EventDetail"
+    tools:ignore="MergeRootFrame">
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:id="@+id/edit_title"
-        android:hint="@string/activity_title"
-        android:singleLine="true"
-        android:inputType="textCapWords" />
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="150dp"
-        android:layout_below="@+id/edit_title"
-        android:hint="@string/activity_desc"
-        android:id="@+id/edit_desc" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".MainActivity"
+        android:orientation="vertical">
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/edit_desc"
-        android:id="@+id/edit_date"
-        android:text="@string/pick_date" />
+        <EditText
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/edit_date"
-        android:id="@+id/editPhone"
-        android:inputType="phone"
-        android:maxLength="10"
-        android:clickable="true"
-        android:hint="Phone" />
+            android:layout_height="50dp"
+            android:id="@+id/edit_title"
+            android:hint="@string/activity_title"
+            android:singleLine="true"
+            android:inputType="textCapWords"
+            style="@style/EditTextDefaultStyle" />
 
-    <Button
-        android:text="Select a photo"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editPhone"
-        android:id="@+id/selectImage"
-        android:onClick="pickPhoto" />
+        <EditText
+            android:layout_height="150dp"
+            android:layout_below="@+id/edit_title"
+            android:hint="@string/activity_desc"
+            android:id="@+id/edit_desc"
+            style="@style/EditTextDefaultStyle" />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/selectImage"
-        android:id="@+id/pick_location"
-        android:text="@string/activity_location" />
+        <EditText
+            android:layout_height="50dp"
+            android:layout_below="@+id/edit_desc"
+            android:id="@+id/edit_date"
+            android:text="@string/pick_date"
+            style="@style/EditTextDefaultStyle" />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/pick_location"
-        android:id="@+id/create_btn"
-        android:text="@string/create_activity" />
+        <EditText
+            android:layout_height="50dp"
+            android:layout_below="@+id/edit_date"
+            android:id="@+id/editPhone"
+            android:inputType="phone"
+            android:maxLength="10"
+            android:clickable="true"
+            android:hint="Phone"
+            style="@style/EditTextDefaultStyle" />
 
-    <ImageView
-        android:layout_below="@+id/create_btn"
-        android:id="@+id/actImage"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-</RelativeLayout>
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/pick_icons"
+            android:layout_below="@+id/editPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/pick_photo_icons"
+                android:orientation="horizontal"
+                style="@style/PickerDefaultStyle"
+                android:onClick="pickPhoto">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/selectImage"
+                    style="@style/TextViewDefaultStyle.Black" />
+
+                <TextView
+                    android:text="@string/upload_picture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/selectImageText"
+                    android:layout_toEndOf="@+id/selectImage"
+                    style="@style/TextViewDefaultStyle.Black" />
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/pick_location_icons"
+                android:layout_toEndOf="@+id/pick_photo_icons"
+                style="@style/PickerDefaultStyle"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pick_location"
+                    style="@style/TextViewDefaultStyle.Black" />
+
+                <TextView
+                    android:text="@string/activity_location"
+                    android:layout_toEndOf="@+id/pick_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pick_location_text"
+                    style="@style/TextViewDefaultStyle.Black" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/pick_icons"
+            android:id="@+id/create_btn"
+            android:text="@string/create_activity"
+            style="@style/ButtonDefaultStyle" />
+
+        <ImageView
+            android:layout_below="@+id/create_btn"
+            android:id="@+id/actImage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</ScrollView>

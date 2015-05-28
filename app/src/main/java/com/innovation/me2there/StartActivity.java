@@ -1,15 +1,9 @@
 package com.innovation.me2there;
+
 import android.app.AlertDialog;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.FragmentActivity;
-
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import java.util.Arrays;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -101,10 +95,17 @@ public class StartActivity extends FragmentActivity {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(EXTRA_MESSAGE, "from Start screen");
         //intent.putExtra(FB_ID,currentUser.getName() );
-        intent.putExtra(FB_ID,"Ashley George");
+        intent.putExtra(FB_ID, "Ashley George");
         startActivity(intent);
     }
 
+    public void btnSVGLaunchClick(View view) {
+        Intent intent = new Intent(this, StaggeredGridActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, "from Start screen");
+        //intent.putExtra(FB_ID,currentUser.getName() );
+        intent.putExtra(FB_ID,"Ashley George");
+        startActivity(intent);
+    }
 
     @Override
     public void onPause() {

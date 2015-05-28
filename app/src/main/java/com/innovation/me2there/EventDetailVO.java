@@ -7,6 +7,7 @@ package com.innovation.me2there;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.format.DateFormat;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -14,14 +15,16 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.Date;
 
 public  class EventDetailVO implements Parcelable {
-
+    static String dateFormat = "MM/dd/yy hh:mm a";
     private int _eventID;
     private String _eventName;
     private String _eventDesc;
     private LatLng _eventLoc;
+    private Date _eventTime;
     private String _imageID;
-    private Bitmap _eventBitmap;
-
+    private Bitmap _eventThumbNailBitmap;
+    private Bitmap _eventDetailBitmap;
+    private Bitmap _eventFullBitmap;
     public int getEventID() {
         return _eventID;
     }
@@ -38,6 +41,12 @@ public  class EventDetailVO implements Parcelable {
         return _eventTime;
     }
 
+    public String getEventTimeSimpleFormat() {
+
+        return DateFormat.format(dateFormat, _eventTime).toString();
+
+    }
+
     public LatLng getEventLoc() {
         return _eventLoc;
     }
@@ -50,29 +59,33 @@ public  class EventDetailVO implements Parcelable {
         return new double[]{_eventLoc.latitude, _eventLoc.longitude};
     }
 
-    public Bitmap getEventImage() {
-        Log.i("EventDetail", "get image " + _imageID);
-        Log.i("EventDetail", "get image eventBitmap " + _eventBitmap);
-        if (_eventBitmap == null) {
-
-            _eventBitmap = DataStore.downloadImage(_imageID);
-            if (_eventBitmap != null) {
-                _eventBitmap = scaleDownBitmap(DataStore.downloadImage(_imageID), 100, MainActivity.densityMultiplier);
+    public Bitmap getThumbNailEventImage() {
+        Log.i("EventDetail", "get thumbNail image " + _imageID);
+        if (_eventThumbNailBitmap == null) {
+            if (getFullEventImage() != null) {
+                _eventThumbNailBitmap = ImageUtil.scaleBitmap(getFullEventImage(), 80, 80, MainActivity.densityMultiplier);
             }
         }
-        return _eventBitmap;
+        return _eventThumbNailBitmap;
     }
 
-    public static Bitmap scaleDownBitmap(Bitmap photo, int newHeight, float densityMultiplier) {
-
-        int h = (int) (newHeight * densityMultiplier);
-        int w = (int) (h * photo.getWidth() / ((double) photo.getHeight()));
-
-        photo = Bitmap.createScaledBitmap(photo, w, h, true);
-
-        return photo;
+    public Bitmap getEventDetailImage() {
+        Log.i("EventDetail", "get Detail image " + _imageID);
+        if (_eventDetailBitmap == null) {
+            if (getFullEventImage() != null) {
+                _eventDetailBitmap = ImageUtil.scaleBitmap(getFullEventImage(), 400, 400, MainActivity.densityMultiplier);
+            }
+        }
+        return _eventDetailBitmap;
     }
-    private Date _eventTime;
+
+    public Bitmap getFullEventImage() {
+        Log.i("EventDetail", "get full image " + _imageID);
+        if (_eventFullBitmap == null) {
+            _eventFullBitmap = DataStore.downloadImage(_imageID);
+        }
+        return _eventFullBitmap;
+    }
 
     public EventDetailVO(String name,int id) {
         _eventID = id;
@@ -117,7 +130,7 @@ public  class EventDetailVO implements Parcelable {
         this._eventName = data[0];
         this._eventDesc = data[1];
         this._eventTime = new Date(in.readLong());
-        this._eventBitmap = (Bitmap) in.readValue(Bitmap.class.getClassLoader());
+        //this._eventFullBitmap = (Bitmap) in.readValue(Bitmap.class.getClassLoader());
 //        in.readDoubleArray(locCoordinates);
 
   //      this._eventLoc = new LatLng(locCoordinates[0],locCoordinates[1]);
@@ -138,7 +151,7 @@ public  class EventDetailVO implements Parcelable {
         if(this._eventLoc != null) {
             parcel.writeDoubleArray(new double[]{this._eventLoc.latitude, this._eventLoc.longitude});
         }
-        parcel.writeValue(_eventBitmap);
+        //parcel.writeValue(_eventFullBitmap);
 
 
     }

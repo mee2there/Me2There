@@ -4,22 +4,19 @@ package com.innovation.me2there;
  * Created by ashley on 3/14/15.
  */
 
-        import android.app.Activity;
-        import android.app.Dialog;
-        import android.app.DialogFragment;
-        import android.content.Context;
-        import android.content.DialogInterface;
-        import android.content.Intent;
-        import android.content.pm.FeatureInfo;
-        import android.content.pm.PackageManager;
-        import android.os.Bundle;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.widget.Toast;
-        import com.google.android.gms.common.ConnectionResult;
-        import com.google.android.gms.common.GooglePlayServicesUtil;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.FeatureInfo;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.widget.Toast;
 
-public class AbstractMapActivity extends Activity {
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
+public class AbstractMapActivity extends Mee2ThereActivity {
     protected static final String TAG_ERROR_DIALOG_FRAGMENT="errorDialog";
 
  /*   @Override

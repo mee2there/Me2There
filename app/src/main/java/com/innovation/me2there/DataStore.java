@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -20,6 +21,19 @@ public class DataStore {
         return _allEvents;
     }
 
+    static public EventDetailVO getEventById(Integer parmID) {
+        Log.i("DataStore", "getEventById : " + parmID);
+        EventDetailVO returnEvent = null;
+        Iterator<EventDetailVO> iterator = _allEvents.iterator();
+        while (iterator.hasNext()) {
+            EventDetailVO nextEvent = iterator.next();
+            if (nextEvent.getEventID() == parmID) {
+                returnEvent = nextEvent;
+                break;
+            }
+        }
+        return returnEvent;
+    }
     public String[] eventNameList() {
 
         List<String> eventNames = new ArrayList<String>();
@@ -48,6 +62,7 @@ public class DataStore {
             @Override
             protected MongoDB doInBackground(Void... params) {
                 // Put in code over here that does the network related operations.
+                Log.i("DataStore", "Constructor : get all events from MongoDb!");
                 MongoDB db = new MongoDB();
                 _allEvents = db.getEvents(latitude, longitude);
 
@@ -128,7 +143,7 @@ public class DataStore {
 
             @Override
             protected Bitmap doInBackground(String... imagesToGet) {
-                Log.i("DataStore", "Download image" + imagesToGet[0]);
+                Log.i("DataStore", "Download image " + imagesToGet[0]);
                 // Put in code over here that does the network related operations.
                 return activityDB.getImage(imagesToGet[0]);
 

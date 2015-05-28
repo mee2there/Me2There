@@ -1,12 +1,11 @@
 package com.innovation.me2there;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 
 
 
@@ -24,7 +23,9 @@ public class LaunchActivity extends FragmentActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_launch, menu);
+        // getMenuInflater().inflate(R.menu.menu_launch, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 

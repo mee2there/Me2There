@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -29,9 +29,10 @@ import java.util.Date;
 /**
  *
  */
-public class CreateActivity extends FragmentActivity {
+public class CreateActivity extends Mee2ThereActivity {
     private EditText title, desc, phone;
-    private Button locationButton, createButton;
+    private TextView locationButton, pickImage, locationText;
+    private Button createButton;
     private EditText activityDate;
     private Context context;
     private LatLng activityLocation;
@@ -87,10 +88,14 @@ public class CreateActivity extends FragmentActivity {
             }
         });
 
+        pickImage = (TextView) findViewById(R.id.selectImage);
+        pickImage.setTypeface(font);
+        pickImage.setText("\ue811");
 
+        locationText = (TextView) findViewById(R.id.pick_location_text);
 
-        locationButton = (Button) findViewById(R.id.pick_location);
-        locationButton.setOnClickListener(new OnClickListener() {
+        locationButton = (TextView) findViewById(R.id.pick_location);
+        OnClickListener imageListner = new OnClickListener() {
             @Override
             public void onClick(View v) {
                 LatLng currentLocation = (LatLng)getIntent().getParcelableExtra("currentLocation");
@@ -99,7 +104,12 @@ public class CreateActivity extends FragmentActivity {
                 //startActivity(myIntent);
                 startActivityForResult(myIntent, SELECT_LOCATION);
             }
-        });
+        };
+        locationButton.setTypeface(font);
+        locationButton.setText("\ue80f");
+
+        locationButton.setOnClickListener(imageListner);
+        locationText.setOnClickListener(imageListner);
         createButton = (Button) findViewById(R.id.create_btn);
         createButton.setOnClickListener(new OnClickListener() {
             @Override

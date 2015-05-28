@@ -49,5 +49,15 @@
                 android:onClick="btnLaunchClick"
                 android:text="Launch " android:visibility="visible"
            android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:id="@+id/btn_sgv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="16dp"
+                android:onClick="btnSVGLaunchClick"
+                android:layout_margin="16dp"
+                android:text="Staggered Grid View" />
 </LinearLayout>
 </RelativeLayout>

@@ -92,12 +92,7 @@ public class MongoDB {
         int index = 0;
         for(DBObject dbResult : results) {
             BasicDBObject dbObject= (BasicDBObject)dbResult;
-            /*Double[] latNLongArray = new Double[2];
-            latNLongArray = (Double[])((BasicDBList) dbResult.get("loc")).toArray(latNLongArray);
-            LatLng latLngObj = new LatLng(latNLongArray[0],latNLongArray[1]);
-            Log.i("MongoDB","resutl "+dbResult);
-
-            Log.i("MongoDB","Coordinates "+latLngObj.toString());*/
+            Log.i("MongoDb", "Index : " + index);
             eventVOList.add(new EventDetailVO(index,
                                               dbObject.getString("name") ,
                                               dbObject.getString("description"),
@@ -105,7 +100,7 @@ public class MongoDB {
                     null,
                     dbObject.get("imageId").toString()
                                               ));
-            index++;
+            index = index + 1;
         }
         return eventVOList;
     }
@@ -272,12 +267,19 @@ public class MongoDB {
     }
 
 
-    public boolean insertUser(String userId,String userName, String locationDetails) {
+    public boolean insertUser(String userId, String userName, String locationDetails, String preference, double lat, double lng) {
+
+        Log.d("MongoDB", "Trying to Insert User");
         DBCollection userCollection = db.getCollection("users");
+        Log.d("MongoDB", "Trying to Insert User 1");
+
         BasicDBObject newUser = new BasicDBObject();
         newUser.put("userId", userId);
         newUser.put("userName", userName);
         newUser.put("locationDetails", locationDetails);
+        newUser.put("preference", preference);
+        newUser.put("lattitude", lat);
+        newUser.put("longitude", lng);
         userCollection.insert(newUser);
         return true;
     }

@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-             facebook:confirm_logout="false"
+            facebook:confirm_logout="false"
             facebook:fetch_user_info="true"
             />
 
@@ -33,8 +33,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:text="Name"
-                android:ems="10"
                 android:hint="Full Name"
+                android:textColor="@color/com_facebook_blue"
                 android:id="@+id/txtPersonName"
                 android:layout_gravity="center_horizontal" />
 
@@ -43,17 +43,43 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:hint="Email"
-                android:ems="10"
-                android:id="@+id/txtEmail" />
+                android:textColor="@color/com_facebook_blue"
+                android:id="@+id/txtEmail"
+                android:layout_gravity="center_horizontal" />
 
-            <EditText
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Location"
+                android:textColor="@color/com_facebook_blue"
+                android:layout_gravity="left"
+                android:inputType="textPostalAddress"
+                android:textSize="18dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Address"
-
+                android:layout_gravity="left"
                 android:inputType="textPostalAddress"
-                android:ems="10"
+                android:textColor="@color/com_facebook_blue"
                 android:id="@+id/txtAddress" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Preference:"
+                android:textColor="@color/com_facebook_blue"
+                android:textSize="18dp"
+                android:layout_gravity="center_horizontal" />
+
+
+            <ExpandableListView
+                android:id="@+id/lvExpCategory"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+
 
             <Button
                 android:layout_width="wrap_content"

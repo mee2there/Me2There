@@ -1,42 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
+    style="@style/CardStyle"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp" >
+    android:id="@+id/card_view">
 
-    <ImageView
-        android:id="@+id/card_main_inner_image"
-        android:layout_width="122px"
-        android:layout_height="122px"
-        android:layout_marginLeft="4px"
-        android:layout_marginRight="10px"
-        android:layout_marginTop="4px"
-        android:src="@drawable/ic_launcher"></ImageView>
-
-    <TextView
-        android:id="@+id/card_main_inner_simple_title"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:padding="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Large Text"
-        style="@style/CustomFontStyle.MediumFont.Blue"/>
+        android:layout_marginStart="2dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/card_main_inner_secondary_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Location"
-        style="@style/CustomFontStyle.SmallFont.Black"/>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:paddingStart="3dp"
+            android:orientation="vertical">
 
-    <RatingBar
-        android:id="@+id/card_main_inner_ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:numStars="4"
-        android:stepSize="1.0"
-        android:rating="2.0" />
+            <ImageView
+                android:id="@+id/card_main_inner_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_launcher" />
+        </LinearLayout>
 
-    <com.google.android.gms.maps.MapView android:id="@+id/mapview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
-</LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:paddingStart="3dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/card_main_inner_simple_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Large Text"
+                android:inputType="textNoSuggestions"
+                style="@style/TextViewDefaultStyle.Blue.Heading" />
+
+            <TextView
+                android:id="@+id/card_main_inner_secondary_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:inputType="textNoSuggestions"
+                style="@style/TextViewDefaultStyle.Grey" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true">
+
+                <TextView
+                    android:id="@+id/card_main_font_pic1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location"
+                    android:layout_marginRight="10px"
+                    style="@style/TextViewRowStyle.Black" />
+
+                <TextView
+                    android:id="@+id/card_main_font_pic2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location"
+                    android:layout_marginRight="10px"
+                    style="@style/TextViewRowStyle.Black" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

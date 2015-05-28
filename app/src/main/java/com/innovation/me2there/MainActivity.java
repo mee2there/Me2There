@@ -2,191 +2,152 @@ package com.innovation.me2there;
 
 
 import android.app.ActionBar;
-import android.app.Activity;
+import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.IntentSender;
-import android.location.Location;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.LatLng;
+import com.etsy.android.grid.StaggeredGridView;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
-import it.gmariotti.cardslib.library.view.CardListView;
 
 //import android.support.v7.app.ActionBar;
 
-public class MainActivity extends Activity implements
-        GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,
-        ActionBar.TabListener {
+public class MainActivity extends Mee2ThereActivity implements
+        ActionBar.TabListener,
+        AbsListView.OnScrollListener,
+        AbsListView.OnItemClickListener,
+        AdapterView.OnItemLongClickListener {
 
-    private static DataStore mee2ThereDataStore;
-    private GoogleApiClient mGoogleApiClient;
-    private Location mLastLocation ;
+    private ViewPager viewPager;
+    private MainFragmentAdapter mAdapter;
+    private ActionBar actionBar;
+    // Tab titles
+    private String[] tabs = {"Discover", "Manage"};
+
     private Double latitute;
     private Double longitutde;
-    // Bool to track whether the app is already resolving an error
-    private boolean mResolvingError = false;
-    // Request code to use when launching the resolution activity
-    private static final int REQUEST_RESOLVE_ERROR = 1001;
-    public static float densityMultiplier;
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mGoogleApiClient.connect();
 
+    public static float densityMultiplier;
+
+
+    private static final String TAG = "StaggeredGridActivity";
+    public static final String SAVED_DATA_KEY = "SAVED_DATA";
+
+    private StaggeredGridView mGridView;
+    private boolean mHasRequestedMore;
+    //private SampleAdapter mAdapter;
+    private ArrayList<String> mData;
+
+
+    public Double getLatitute() {
+        return latitute;
     }
-	@Override
+
+    public Double getLongitude() {
+        return longitutde;
+    }
+
+    public void setLatitute(Double latParm) {
+        latitute = latParm;
+    }
+
+    public void setLongitude(Double longParm) {
+        longitutde = longParm;
+    }
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        buildGoogleApiClient();
+
 		setContentView(R.layout.activity_main);
+        AssetManager mngr = getAssets();
+        Typeface font = Typeface.createFromAsset(mngr, "fontello.ttf");
+
 
         densityMultiplier = getApplicationContext().getResources().getDisplayMetrics().density;
         Intent intent = getIntent();
         String message = intent.getStringExtra(StartActivity.EXTRA_MESSAGE);
         String facebookId =intent.getStringExtra(StartActivity.FB_ID);
 
-        // Set up the action bar.
-        //final ActionBar actionBar = getSupportActionBar();
-        final ActionBar actionBar = getActionBar();
-        // Specify that the Home/Up button should not be enabled, since there is no hierarchical
-        // parent.
-        // actionBar.setHomeButtonEnabled(false);
 
-        // Specify that we will be displaying tabs in the action bar.
-        //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        TextView createButton = (TextView) findViewById(R.id.btnOrganize);
-        createButton.setKeyListener(null);
-        createButton.setOnClickListener(new View.OnClickListener() {
+        // Initilization
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        actionBar = getActionBar();
+        mAdapter = new MainFragmentAdapter(getSupportFragmentManager());
+
+        viewPager.setAdapter(mAdapter);
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        // Adding Tabs
+        for (String tab_name : tabs) {
+            actionBar.addTab(actionBar.newTab().setText(tab_name)
+                    .setTabListener(this));
+        }
+
+        /**
+         * on swiping the viewpager make respective tab selected
+         * */
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
             @Override
-            public void onClick(View v) {
-                LatLng currentLocation = new LatLng(latitute,longitutde);
-                Intent intent = new Intent(getApplicationContext(), CreateActivity.class);
-                intent.putExtra("currentLocation",currentLocation);
-                startActivity(intent);
+            public void onPageSelected(int position) {
+                // on changing the page
+                // make respected tab selected
+                actionBar.setSelectedNavigationItem(position);
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
             }
         });
 
-    }
-    protected synchronized void buildGoogleApiClient() {
-        // Create a GoogleApiClient instance
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(LocationServices.API)
-                //.addScope(LocationServices.SCOPE_FILE)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
-    }
 
-    @Override
-    protected void onStop() {
-        mGoogleApiClient.disconnect();
-        super.onStop();
-    }
-
-    @Override
-    public void onConnected(Bundle connectionHint) {
-        // Connected to Google Play services!
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
-        if (mLastLocation != null) {
-            latitute = mLastLocation.getLatitude();
-            longitutde = mLastLocation.getLongitude();
-        }
-        Log.i("Main Activity", "lat:" + latitute.toString() + " long:" + longitutde.toString());
-        fillCards();
-    }
-
-    @Override
-    public void onConnectionSuspended(int cause) {
-        // The connection has been interrupted.
-        // Disable any UI components that depend on Google APIs
-        // until onConnected() is called.
-        Log.i("MainActivity", "Location Connection Suspended ");
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult result) {
-        // This callback is important for handling errors that
-        // may occur while attempting to connect with Google.
-        //
-        // More about this in the next section.
-        Log.i("Main Activity","Location Connection Failed "+result.toString());
-        Log.i("Main Activity","Location Connection Failed Resolution "+result.getResolution());
-        Log.i("Main Activity","Location Connection Failed Error Code "+result.getErrorCode());
-        Log.i("Main Activity","Location Connection Failed Error Code "+result.hasResolution());
-        if (mResolvingError) {
-            // Already attempting to resolve an error.
-            return;
-        } else if (result.hasResolution()) {
-            try {
-                mResolvingError = true;
-                result.startResolutionForResult(this, REQUEST_RESOLVE_ERROR);
-            } catch (IntentSender.SendIntentException e) {
-                // There was an error with the resolution intent. Try again.
-                mGoogleApiClient.connect();
-            }
-        } else {
-            // Show dialog using GooglePlayServicesUtil.getErrorDialog()
-            //showErrorDialog(result.getErrorCode());
-            mResolvingError = true;
-        }
 
     }
 
-    private void fillCards(){
-        if(mee2ThereDataStore == null) {
-            mee2ThereDataStore = new DataStore(latitute, longitutde);
-        }
-        //Need to retrieve the activity list and image name from DB
-        List<EventDetailVO> events = DataStore.getActivities();
 
-        ArrayList<Card> cards = new ArrayList<Card>();
+//    private void fillNewCards(){
+//        if(mee2ThereDataStore == null) {
+//            mee2ThereDataStore = new DataStore(latitute, longitutde);
+//        }
+//        //Need to retrieve the activity list and image name from DB
+//        List<EventDetailVO> events = DataStore.getActivities();
+//
+//        mAdapter = new SampleAdapter(this, R.id.txt_line1);
+//
+//        // do we have saved data?
+//        /*if (savedInstanceState != null) {
+//            mData = savedInstanceState.getStringArrayList(SAVED_DATA_KEY);
+//        }*/
+//
+//        for(EventDetailVO anEvent:events){
+//            mAdapter.add(anEvent);
+//        }
+//
+//        mGridView.setAdapter(mAdapter);
+//
+//
+//    }
 
-        for(EventDetailVO anEvent:events){
-            // Create a Card
-            Card cardItem = new ActivityCard(this,R.layout.row_card,anEvent);
-            cards.add(cardItem);
-        }
 
-        CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(this, cards);
 
-        CardListView listView = (CardListView) this.findViewById(R.id.activityList);
-        if (listView != null) {
-            listView.setAdapter(mCardArrayAdapter);
-        }
-
-    }
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-    }
 
 
     @Override
@@ -208,10 +169,10 @@ public class MainActivity extends Activity implements
 //                loggedInUser = null;
 //                invalidateOptionsMenu();
 //                return true;
-//            case R.id.action_profile:
-//                intent = new Intent(this,EditProfile.class);
-//                startActivity(intent);
-//                return true;
+            case R.id.action_profile:
+                intent = new Intent(this, EditProfile.class);
+                startActivity(intent);
+                return true;
 //            case R.id.action_settings:
 //                intent = new Intent(this,Settings.class);
 //                startActivity(intent);
@@ -250,4 +211,65 @@ public class MainActivity extends Activity implements
         return true;
 
     }
+
+
+    @Override
+    public void onScrollStateChanged(final AbsListView view, final int scrollState) {
+        Log.d(TAG, "onScrollStateChanged:" + scrollState);
+    }
+
+    @Override
+    public void onScroll(final AbsListView view, final int firstVisibleItem, final int visibleItemCount, final int totalItemCount) {
+        Log.d(TAG, "onScroll firstVisibleItem:" + firstVisibleItem +
+                " visibleItemCount:" + visibleItemCount +
+                " totalItemCount:" + totalItemCount);
+        // our handling
+        if (!mHasRequestedMore) {
+            int lastInScreen = firstVisibleItem + visibleItemCount;
+            if (lastInScreen >= totalItemCount) {
+                Log.d(TAG, "onScroll lastInScreen - so load more");
+                mHasRequestedMore = true;
+                onLoadMoreItems();
+            }
+        }
+    }
+
+    private void onLoadMoreItems() {
+        //final ArrayList<String> sampleData = SampleData.generateSampleData();
+        //for (String data : sampleData) {
+        //    mAdapter.add(data);
+        //}
+        // stash all the data in our backing store
+//        mData.addAll(sampleData);
+        // notify the adapter that we can update now
+        //      mAdapter.notifyDataSetChanged();
+        //    mHasRequestedMore = false;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        Toast.makeText(this, "Item Clicked: " + position, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(this, "Item Long Clicked: " + position, Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    @Override
+    public void onTabReselected(Tab tab, FragmentTransaction ft) {
+    }
+
+    @Override
+    public void onTabSelected(Tab tab, FragmentTransaction ft) {
+        // on tab selected
+        // show respected fragment view
+        viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+    }
+
 }
