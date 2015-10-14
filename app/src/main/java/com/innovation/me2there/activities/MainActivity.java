@@ -429,6 +429,7 @@ public class MainActivity extends Mee2ThereActivity implements
                 //mAdapter.getMainFragment().fillCards();
                 //mAdapter.getMyEventsFragment().fillCards();
                 //mAdapter.getGoingEventsFragment().fillCards();
+                mAdapter.getMyEventsFragment().setProgressBarInVisibile();
 
             }
         }
@@ -465,6 +466,8 @@ public class MainActivity extends Mee2ThereActivity implements
                 //mAdapter.getMainFragment().fillCards();
                 //mAdapter.getMyEventsFragment().fillCards(fetchedEvents);
                 mAdapter.getGoingEventsFragment().fillCards();
+                mAdapter.getGoingEventsFragment().setProgressBarInVisibile();
+
 
             }
         }

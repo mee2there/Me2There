@@ -13,34 +13,17 @@ import java.util.Set;
 
 public class DiscoverEventsFragment extends CardViewFragment  {
 
-    private ProgressBar bar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater,container,savedInstanceState);
-        if(!cardsLoaded) {
-            bar = (ProgressBar) rootView.findViewById(R.id.progressBar);
-            setProgressBarVisibile();
-        }
         return rootView;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-    }
-
-
-    public void setProgressBarVisibile(){
-        if(bar != null) {
-            bar.setVisibility(View.VISIBLE);
-        }
-    }
-    public void setProgressBarInVisibile(){
-        if(bar != null) {
-            bar.setVisibility(View.GONE);
-        }
     }
 
     @Override

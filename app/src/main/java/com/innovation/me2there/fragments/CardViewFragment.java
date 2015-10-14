@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.innovation.me2there.R;
@@ -28,6 +29,7 @@ public class CardViewFragment  extends Mee2ThereCardFragmentBase{
     protected CardViewAdapter mAdapter;
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
+    protected ProgressBar bar;
 
 
     @Override
@@ -56,7 +58,7 @@ public class CardViewFragment  extends Mee2ThereCardFragmentBase{
     }
 
     protected void addNewEvents(List<EventDetailVO> _newEvents){
-        Log.i("Mee2ThereFragmentBase","add Events?");
+        Log.i("Mee2ThereFragmentBase", "add Events?");
 
         for(EventDetailVO event:_newEvents){
             mAdapter.addItem(event);
@@ -67,6 +69,11 @@ public class CardViewFragment  extends Mee2ThereCardFragmentBase{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_discover, container, false);
+        if(!cardsLoaded) {
+            bar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+            setProgressBarVisibile();
+        }
+
         //activity = (MainActivity) getActivity();
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.custom_list);
 
@@ -102,6 +109,18 @@ public class CardViewFragment  extends Mee2ThereCardFragmentBase{
 
     }
 
+
+
+    public void setProgressBarVisibile(){
+        if(bar != null) {
+            bar.setVisibility(View.VISIBLE);
+        }
+    }
+    public void setProgressBarInVisibile(){
+        if(bar != null) {
+            bar.setVisibility(View.GONE);
+        }
+    }
 
     /**
      * Called when the fragment is visible to the user and actively running.

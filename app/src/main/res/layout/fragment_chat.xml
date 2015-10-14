@@ -32,19 +32,28 @@
 
             <EditText
                 android:id="@+id/message_input"
-                android:layout_width="125px"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minLines="2"
+                android:layout_weight="0.8"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="3dp"
+
                 android:imeActionId="@+id/send"
                 android:imeActionLabel="@string/action_send"
                 android:imeOptions="actionSend"
-                android:layout_weight="0.8" />
 
-            <Button
+                style="@style/chat_text_message_style"
+                />
+
+            <ImageButton
                 android:id="@+id/send_button"
-                android:layout_width="100px"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:text="Send"
+                android:src="@drawable/ic_send_white_24dp"
+                android:padding="12dp"
+                android:layout_margin="3dp"
+                android:background="@drawable/circle"
                 android:contentDescription="@string/action_send" />
         </LinearLayout>
     </LinearLayout>

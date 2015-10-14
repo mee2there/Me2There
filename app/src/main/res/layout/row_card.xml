@@ -110,7 +110,7 @@
 
             <ImageView
                 android:id="@+id/card_main_inner_image"
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="90dp"
                 android:padding="10dp"
                 android:src="@drawable/ic_launcher" />
