@@ -1,33 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/create_new_layout"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/custom_list"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingStart="25dp"
-        android:paddingEnd="25dp"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal"
-        style="@style/PickerDefaultStyle">
+        tools:context=".MainActivity" />
 
-        <TextView
-            android:id="@+id/create_new_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_new"
-            style="@style/TextViewRowStyle.Black.Heading" />
 
-        <Button
-            android:id="@+id/action_bar_new"
-            style="@style/CircleStyle" />
-
-    </LinearLayout>
 </RelativeLayout>
 

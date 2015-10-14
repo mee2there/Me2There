@@ -1,90 +1,148 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    tools:context="firstapp.ashley.com.firstapp.EventDetail$PlaceholderFragment">
+<?xml version="1.0" encoding="utf-8"?>
 
-    <TextView
-        android:id="@+id/event_name"
-        android:text="@string/hello_world"
-        android:layout_margin="15dp"
-        style="@style/TextViewDefaultStyle.Blue.Heading" />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/activity_image"
-        android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher" />
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/now_playing_art_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:contentDescription="@string/thumbnail"
+        android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/event_desc"
-        android:text="@string/hello_world"
-        style="@style/TextViewDefaultStyle.Grey.Heading" />
 
-    <TextView
-        android:id="@+id/event_time"
-        android:text="@string/hello_world"
-        style="@style/TextViewDefaultStyle.Black.Heading" />
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
+        <com.melnykov.fab.ObservableScrollView
+            android:id="@+id/media_panel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
-            style="@style/CircleStyle.Blue">
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:fillViewport="true">
 
-            <TextView
-                android:id="@+id/chat_font_pic"
-                android:layout_width="wrap_content"
+            <!-- Movie details information -->
+            <LinearLayout
+                android:id="@+id/media_panel_group"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                style="@style/TextViewDefaultStyle.White.Heading" />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:transitionGroup="true">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
-            style="@style/CircleStyle.Blue">
+                <RelativeLayout
+                    android:id="@+id/name_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/now_playing_art_height"
+                    android:background="?attr/contentBackgroundColor"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/default_padding"
+                    android:paddingTop="@dimen/default_padding">
 
-            <TextView
-                android:id="@+id/card_main_font_pic2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                style="@style/TextViewDefaultStyle.White.Heading" />
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/event_name"
+                        style="@style/TextAppearance.Media.Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </RelativeLayout>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
+                <RelativeLayout
+                    android:id="@+id/title_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name_bar"
+                    android:paddingTop="@dimen/default_padding"
+                    android:background="?attr/contentBackgroundColor"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/double_padding"
+                    >
 
-            style="@style/CircleStyle.Blue">
+                    <Button
+                        android:id="@+id/no_of_participants"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Comments"
+                        android:drawableStart="@drawable/ic_group_black_24dp"
+                        android:background="?attr/contentBackgroundColor"
+                        />
 
-            <TextView
-                android:id="@+id/card_main_font_pic3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                style="@style/TextViewDefaultStyle.White.Heading" />
-        </LinearLayout>
+                    <Button
+                        android:id="@+id/goto_chat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="Comments"
+                        android:drawableStart="@drawable/ic_chat_black_24dp"
+                        android:background="?attr/contentBackgroundColor"
+                        android:paddingLeft="@dimen/default_padding"
+                        android:layout_marginRight="@dimen/default_padding"
 
-        <TextView
-            android:id="@+id/card_main_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
-            style="@style/TextViewDefaultStyle.Black.Heading" />
-    </LinearLayout>
-</LinearLayout>
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rsvp_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/contentBackgroundColor"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/default_padding"
+                    android:paddingTop="@dimen/default_padding">
+
+                    <include
+                        android:id="@+id/app_bar"
+                        layout="@layout/rsvp_layout" />
+                </RelativeLayout>
+
+                <include
+                    android:id="@+id/date_bar"
+                    layout="@layout/date_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name_bar" />
+
+                <ImageView
+                    android:id="@+id/map_poster"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/now_playing_poster_height"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/date_bar"
+                    android:contentDescription="@string/poster"
+                    android:scaleType="centerCrop"
+                    />
+
+                <TextView
+                    android:id="@+id/event_desc"
+                    style="@style/TextAppearance.Media.Subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/map_poster"
+                    android:background="?attr/contentBackgroundColor"
+                    android:paddingLeft="@dimen/default_padding"
+                    android:paddingRight="@dimen/default_padding" />
+
+            </LinearLayout>
+
+        </com.melnykov.fab.ObservableScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <!-- View that will be shown with the circularReveal when user presses the FAB -->
+    <View
+        android:id="@+id/exit_transition_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/fabColorNormal"
+        android:visibility="invisible" />
+
+</RelativeLayout>

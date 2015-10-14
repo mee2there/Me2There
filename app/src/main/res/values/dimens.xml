@@ -6,9 +6,51 @@
     <!-- Text sizes -->
     <dimen name="text_size_small">14.0sp</dimen>
     <dimen name="text_size_medium">16.0sp</dimen>
-
+    <dimen name="text_size_large">20.0sp</dimen>
     <!-- ActionBar color strip -->
     <dimen name="colorstrip">7dp</dimen>
     <dimen name="spacing">8dp</dimen>
+
+    <dimen name="nav_drawer_width">280dp</dimen>
+    <dimen name="app_bar_top_padding">0dp</dimen>
+    <dimen name="drawer_margin_top">24dp</dimen>
+    <dimen name="size_text_primary">16sp</dimen>
+    <dimen name="size_text_secondary">14sp</dimen>
+    <dimen name="size_half_byte">4dp</dimen>
+    <dimen name="size_byte">8dp</dimen>
+    <dimen name="movie_thumbnail_width">74dp</dimen>
+    <dimen name="movie_thumbnail_height">120dp</dimen>
+
+
+    <dimen name="now_playing_art_height">180dp</dimen>
+    <dimen name="remote_content_hmargin">8dp</dimen>
+    <dimen name="media_title_margin_top">216dp</dimen>
+    <dimen name="poster_width_plus_padding">144dp</dimen>
+    <dimen name="default_padding">16dp</dimen>
+    <dimen name="now_playing_poster_width">112dp</dimen>
+    <dimen name="now_playing_poster_height">100dp</dimen>
+    <dimen name="buttonbar_height">48dp</dimen>
+    <dimen name="rsvpbar_height">48dp</dimen>
+
+    <dimen name="buttonbar_button_width">48dp</dimen>
+    <dimen name="double_padding">32dp</dimen>
+    <dimen name="small_padding">8dp</dimen>
+    <dimen name="default_grid_column_width">250dp</dimen>
+    <!-- Smaller spacing because cardview compat adds padding -->
+    <dimen name="default_grid_horizontal_spacing">4dp</dimen>
+    <dimen name="default_grid_vertical_spacing">0dp</dimen>
+    <dimen name="default_icon_size">48dp</dimen>
+
+
+
+    <dimen name="mb_corner_radius_2">2dp</dimen>
+    <dimen name="mb_corner_radius_4">4dp</dimen>
+    <dimen name="mb_width_100">100dp</dimen>
+    <dimen name="mb_width_120">120dp</dimen>
+    <dimen name="mb_width_200">200dp</dimen>
+    <dimen name="mb_height_56">56dp</dimen>
+    <dimen name="mb_height_8">8dp</dimen>
+    <dimen name="mb_height_4">4dp</dimen>
+
 
 </resources>

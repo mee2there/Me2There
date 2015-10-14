@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Copyright 2015 Synced Synapse. All rights reserved.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="appTextColorPrimary">@color/black_dim_87pct</item>
+        <item name="appTextColorSecondary">@color/black_dim_54pct</item>
+        <item name="contentBackgroundColor">@color/light_content_background_dim_70pct</item>
+        <item name="iconAddToQueue">@color/dark_content_background_dim_70pct</item>
+        <item name="iconInfoWWW">@drawable/ic_open_in_new_white_24dp</item>
+        <item name="iconJoined">@drawable/ic_done_white_24dp</item>
+        <item name="iconJoinedBackgroundColor">@color/dark_content_background_dim_70pct</item>
+
+        <item name="iconRsvp">@drawable/ic_done_black_24dp</item>
+        <item name="iconRsvpBackgroundColor">@color/light_content_background_dim_70pct</item>
+
+        <item name="iconDownload">@drawable/ic_get_app_white_24dp</item>
+        <item name="fabColorNormal">?attr/colorPrimary</item>
+        <item name="fabColorPressed">?attr/colorPrimaryDark</item>
+        <item name="buttonBarBackgroundColor">@color/light_content_background_dim_70pct</item>
+        <item name="separatorColor">@color/light_separator</item>
+        <!-- colorAccent is used as the default value for colorControlActivated
+     which is used to tint widgets -->
+        <!-- THIS IS WHAT YOU'RE LOOKING FOR -->
+
+        <item name="colorAccent">#0091BC</item>
+        <item name="colorControlNormal">#1A000000</item>
+    </style>
+
+</resources>

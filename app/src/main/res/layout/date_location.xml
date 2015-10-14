@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/date_loc_details"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/default_padding"
+    android:paddingBottom="@dimen/default_padding"
+    android:paddingLeft="@dimen/default_padding"
+    android:orientation="horizontal"
+    android:background="?attr/contentBackgroundColor">
+
+    <TextView
+        android:id="@+id/event_year"
+        android:text="2015"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        style="@style/TextAppearance.Media.SmallDetails" />
+
+    <TextView
+        android:id="@+id/event_month"
+        android:text="Sep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/event_year"
+        android:layout_alignRight="@id/event_year"
+        style="@style/TextAppearance.Media.SmallDetails" />
+
+    <TextView
+        android:id="@+id/event_date"
+        android:text="21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:layout_toRightOf="@id/event_year"
+        style="@style/TextAppearance.Media.Rating"
+        android:layout_marginRight="@dimen/small_padding" />
+
+    <TextView
+        android:id="@+id/start_time"
+        android:text="10am"
+        android:paddingLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/event_year"
+        android:layout_toRightOf="@id/event_date"
+        style="@style/TextAppearance.Media.SmallDetails" />
+
+    <TextView
+        android:id="@+id/end_time"
+        android:paddingLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/event_year"
+        android:layout_toRightOf="@id/start_time"
+        style="@style/TextAppearance.Media.SmallDetails"
+        android:text="12am" />
+
+    <TextView
+        android:id="@+id/location_text"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/event_year"
+
+        android:layout_alignParentRight="true"
+        style="@style/TextAppearance.Media.SmallDetails"
+        android:drawableLeft="@drawable/ic_location_on_black_24dp" />
+</RelativeLayout>

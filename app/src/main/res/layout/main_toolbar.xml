@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/top_background">
+        <include
+            android:id="@+id/action_bar_include"
+            layout="@layout/action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+        <include
+            android:id="@+id/create_button_include"
+            layout="@layout/create_button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <include
+            android:id="@+id/tabs_include"
+            layout="@layout/toolbar_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</android.support.v7.widget.Toolbar>

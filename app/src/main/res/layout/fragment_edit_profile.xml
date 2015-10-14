@@ -6,7 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.innovation.me2there.EditProfileFragment">
+    tools:context="com.innovation.me2there.fragments.EditProfileFragment">
 
     <SearchView
         android:id="@+id/searchInterests"

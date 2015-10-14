@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/no_internet"
+        android:text="@string/no_internet_string"
+        android:gravity="center_vertical"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal|center_vertical"
+        style="@style/TextAppearance.Media.Title" />
+    <Button
+        android:layout_below="@+id/no_internet"
+        android:id="@+id/refresh_button"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:text="@string/refresh"
+        style="@style/CreateButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        />
+
+</RelativeLayout>

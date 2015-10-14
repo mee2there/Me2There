@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.innovation.me2there.activity_search_results">
+    tools:context="com.innovation.me2there.activities.activity_search_results">
     <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings"

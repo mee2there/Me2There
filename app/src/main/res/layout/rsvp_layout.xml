@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/media_actions_bar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/buttonbar_height"
+    android:paddingLeft="@dimen/default_padding"
+    android:paddingRight="@dimen/default_padding"
+    android:orientation="horizontal"
+    style="@style/ButtonBar"
+    android:background="?attr/contentBackgroundColor">
+
+    <com.innovation.me2there.views.morphingbutton.MorphingButton
+        android:id="@+id/share_morph_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/default_padding"
+        android:paddingRight="@dimen/default_padding"
+        android:textColor="@color/white"
+        android:text="@string/share"
+        style="@style/Widget.Button.Borderless"
+        />
+    <com.innovation.me2there.views.morphingbutton.MorphingButton
+        android:id="@+id/rsvp_morph_button"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/default_padding"
+        android:paddingRight="@dimen/default_padding"
+        android:textColor="@color/white"
+        style="@style/Widget.Button.Borderless"
+        />
+
+</RelativeLayout>

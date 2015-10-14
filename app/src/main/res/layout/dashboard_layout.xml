@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Your package folder -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/window_background"
+     >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:orientation="horizontal"
+        >
+    <!--  News Feed Button -->
+    <Button
+        android:id="@+id/btn_news_feed"
+        style="@style/DashboardButton"
+        android:text="News Feed" />
+
+    <!--  Friends Button -->
+    <Button
+        android:id="@+id/btn_friends"
+        style="@style/DashboardButton"
+        android:text="Friends" />
+        <!--  Photos Button -->
+        <Button
+            android:id="@+id/btn_photos"
+            style="@style/DashboardButton"
+            android:text="Photos" />
+
+
+    </LinearLayout>
+    <!--  Messages Button -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:orientation="horizontal"
+        >
+    <Button
+        android:id="@+id/btn_messages"
+        style="@style/DashboardButton"
+        android:text="Messages" />
+
+    <!--  Places Button -->
+    <Button
+        android:id="@+id/btn_places"
+        style="@style/DashboardButton"
+        android:text="Places" />
+
+    <!--  Events Button -->
+    <Button
+        android:id="@+id/btn_events"
+        style="@style/DashboardButton"
+        android:text="Events" />
+    </LinearLayout>
+
+</LinearLayout>

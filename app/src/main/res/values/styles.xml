@@ -1,14 +1,6 @@
-<resources>
-
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Material.Light">
-        <!-- Customize your theme here. -->
-        <item name="android:actionBarStyle">@style/ActionBarTheme</item>
-        <item name="android:windowBackground">@color/window_background</item>
-        <item name="android:colorPrimaryDark">@color/window_primary_top</item>
-        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
-        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
-    </style>
+
     <!-- Base application theme. -->
     <style name="AppThemeNoBar" parent="android:Theme.Material.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -33,12 +25,12 @@
 
     <style name="AppFontStyle">
         <item name="android:typeface">monospace</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
 
     </style>
 
 
-    <style name="ActionBarButton">
+    <style name="ActionBarButton" parent="@style/AppFontStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@null</item>
@@ -50,6 +42,23 @@
     <style name="ActionBarButtonWhite" parent="@style/ActionBarButton">
         <item name="android:textColor">@color/white</item>
     </style>
+    <style name="ActionBarTab" parent="@style/AppFontStyle">
+        <item name="android:textSize">@dimen/text_size_small</item>
+
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
+
+    </style>
+    <style name="ActionBarTabSelected" parent="@style/ActionBarTab">
+        <item name="android:background">@drawable/tab_selected</item>
+    </style>
+    <style name="ActionBarTabUnSelected" parent="@style/ActionBarTab">
+        <item name="android:background">@drawable/tab_unselected</item>
+    </style>
+
 
     <style name="ActionBarButtonNewEvent" parent="@style/ActionBarButton">
         <item name="android:textColor">@color/white</item>
@@ -60,23 +69,50 @@
         <item name="android:textColor">@color/off_white</item>
 
     </style>
-
-    <style name="CardStyle">
+    <style name="LinearLayoutStyle">
         <item name="android:layout_marginStart">3dp</item>
         <item name="android:layout_marginEnd">3dp</item>
         <item name="android:layout_marginTop">3dp</item>
         <item name="android:layout_marginBottom">3dp</item>
-        <item name="android:background">@drawable/card</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:background">@drawable/linear_layout</item>
     </style>
 
+    <style name="CardStyle" parent="@style/AppFontStyle">
+        <item name="android:layout_marginStart">3dp</item>
+        <item name="android:layout_marginEnd">3dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:background">?attr/contentBackgroundColor
+        </item>
+    </style>
+    <style name="ImageDetailStyle" parent="@style/AppFontStyle">
+        <item name="android:background">@drawable/linear_layout</item>
+    </style>
+    <style name="DetailCardStyle" parent="@style/AppFontStyle">
+      <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:background">@drawable/linear_layout</item>
+    </style>
     <style name="EditTextDefaultStyle" parent="@style/AppFontStyle">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">5dp</item>
         <item name="android:layout_marginStart">5dp</item>
         <item name="android:layout_marginEnd">5dp</item>
-        <item name="android:layout_marginTop">15dp</item>
-        <item name="android:background">@drawable/edittext_default_bg</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:background">@drawable/edit_text_style</item>
+    </style>
+
+
+    <style name="EditTextDefaultStyle.Medium" parent="@style/EditTextDefaultStyle">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+    <style name="EditTextDefaultStyle.Large" parent="@style/EditTextDefaultStyle">
+        <item name="android:textSize">@dimen/text_size_large</item>
     </style>
 
     <style name="ButtonDefaultStyle" parent="@style/AppFontStyle">>
@@ -86,21 +122,91 @@
         <item name="android:padding">5dp</item>
         <item name="android:layout_marginStart">5dp</item>
         <item name="android:layout_marginEnd">5dp</item>
-        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginTop">5dp</item>
         <item name="android:background">@drawable/button</item>
     </style>
 
-    <style name="PickerDefaultStyle" parent="@style/AppFontStyle">>
+    <style name="CreateButtonStyle" parent="@style/ButtonDefaultStyle">>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:layout_marginEnd">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+
+        <item name="android:background">@drawable/create_shape</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+    <style name="SmallButtonDefaultStyle" parent="@style/AppFontStyle">>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">4pt</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:layout_marginEnd">3dp</item>
+
+        <item name="android:layout_marginBottom">3dp</item>
+
+        <item name="android:background">@drawable/rsvp_shape</item>
+
+    </style>
+    <style name="SpinnerDefaultStyle" parent="@style/AppFontStyle">>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:background">@drawable/spinner</item>
+    </style>
+    <style name="PrefSelectStyle" parent="@style/ButtonDefaultStyle">>
+        <item name="android:textSize">10pt</item>
+        <item name="android:textColor">@drawable/button_text_color</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:background">@drawable/preference</item>
+    </style>
+    <style name="PickerDefaultStyle" parent="@style/AppFontStyle">
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:background">@drawable/edit_text_style</item>
+    </style>
+    <style name="NewCreateStyle" parent="@style/AppFontStyle">>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:paddingRight">30dp</item>
+        <item name="android:background">@drawable/button</item>
+    </style>
+
+    <style name="BottomMenuStyle" parent="@style/AppFontStyle">>
         <item name="android:textColor">@color/black</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingLeft">20dp</item>
         <item name="android:paddingRight">20dp</item>
-        <item name="android:layout_marginStart">50dp</item>
-        <item name="android:layout_marginTop">15dp</item>
-        <item name="android:background">@drawable/black</item>
+        <item name="android:background">@drawable/bottom_menu</item>
     </style>
-
     <style name="TextViewDefaultStyle" parent="@style/AppFontStyle">>
         <item name="android:textSize">7pt</item>
         <item name="android:textColor">@color/white</item>
@@ -111,6 +217,7 @@
         <item name="android:layout_marginStart">1dp</item>
         <item name="android:layout_marginEnd">1dp</item>
         <item name="android:layout_marginTop">1dp</item>
+
     </style>
 
     <style name="TextViewDefaultStyle.Black" parent="@style/TextViewDefaultStyle">
@@ -130,17 +237,20 @@
     </style>
 
     <style name="TextViewDefaultStyle.Blue.Heading" parent="@style/TextViewDefaultStyle">
-        <item name="android:textSize">10pt</item>
+        <item name="android:textSize">9pt</item>
         <item name="android:textColor">@color/blue</item>
     </style>
 
     <style name="TextViewDefaultStyle.Black.Heading" parent="@style/TextViewDefaultStyle">
-        <item name="android:textSize">10pt</item>
+        <item name="android:textSize">9pt</item>
         <item name="android:textColor">@color/black</item>
     </style>
-
+    <style name="TextViewDefaultStyle.White" parent="@style/TextViewDefaultStyle">
+        <item name="android:textSize">7pt</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
     <style name="TextViewDefaultStyle.White.Heading" parent="@style/TextViewDefaultStyle">
-        <item name="android:textSize">12pt</item>
+        <item name="android:textSize">10pt</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
@@ -165,15 +275,140 @@
 
     <style name="CircleStyle" parent="@style/AppFontStyle">>
         <item name="android:textColor">@color/white</item>
-        <item name="android:layout_width">50dp</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
         <item name="android:background">@drawable/circle</item>
 
     </style>
 
     <style name="CircleStyle.Blue" parent="@style/CircleStyle">>
-        <item name="android:padding">5dp</item>
-        <item name="android:layout_margin">5dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_margin">10dp</item>
         <item name="android:background">@drawable/circle_picker</item>
     </style>
+
+
+    <style name="DashboardButton" parent="@style/AppFontStyle">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:drawablePadding">2dp</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#ff29549f</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="FooterBar">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">#dedede</item>
+    </style>
+    <style name="TextInputLayout">
+        <item name="android:layout_width">match_parent</item>
+         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+
+    </style>
+    <style name="TextAppearance">
+        <item name="android:textColor">?attr/appTextColorPrimary</item>
+    </style>
+    <style name="TextAppearance.Media">
+        <item name="android:gravity">left</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TextAppearance.Media.Title">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="TextAppearance.Media.Subtitle">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:textColor">?attr/appTextColorSecondary</item>
+        <item name="android:maxLines">5</item>
+    </style>
+
+    <style name="TextAppearance.Media.SmallDetails">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Caption</item>
+        <item name="android:textColor">?attr/appTextColorSecondary</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="TextAppearance.Media.Rating">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Headline</item>
+        <item name="android:textColor">?attr/appTextColorPrimary</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="TextAppearance.Media.Cast">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Caption</item>
+        <item name="android:paddingLeft">@dimen/small_padding</item>
+        <item name="android:paddingRight">@dimen/small_padding</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="TextAppearance.Media.Info">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+        <item name="android:textColor">?attr/appTextColorPrimary</item>
+        <item name="android:paddingTop">@dimen/default_padding</item>
+        <item name="android:paddingBottom">@dimen/default_padding</item>
+    </style>
+    <style name="ButtonBar">
+        <item name="android:background">?attr/buttonBarBackgroundColor</item>
+    </style>
+
+
+    <style name="Widget"/>
+
+    <style name="Widget.Button">
+    </style>
+
+    <style name="Widget.Button.Borderless">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Button</item>
+    </style>
+
+    <style name="Widget.GridView">
+        <item name="android:columnWidth">@dimen/default_grid_column_width</item>
+        <item name="android:numColumns">auto_fit</item>
+        <item name="android:stretchMode">columnWidth</item>
+        <item name="android:horizontalSpacing">@dimen/default_grid_horizontal_spacing</item>
+        <item name="android:verticalSpacing">@dimen/default_grid_vertical_spacing</item>
+        <item name="android:fastScrollEnabled">true</item>
+    </style>
+
+    <style name="DefaultDividerH">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?attr/separatorColor</item>
+    </style>
+
+
+    <declare-styleable name="FlowLayout">
+        <attr name="android:gravity" />
+    </declare-styleable>
+    <declare-styleable name="FlowLayout_Layout">
+        <attr name="android:layout_gravity" />
+    </declare-styleable>
+
+    <style name="FullscreenTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
 </resources>

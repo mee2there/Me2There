@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Me2There</string>
+    <string name="app_name">Me2There!</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_card_list">CardListActivity</string>
@@ -15,22 +15,27 @@
     <string name="title_activity_launch">LaunchActivity</string>
     <string name="title_activity_signup">SignupActivity</string>
     <string name="title_activity_event_detail">Activity Detail</string>
-    <string name="title_activity_create">New Activity</string>
+    <string name="title_activity_create">New Event</string>
     <string name="activity_title">Title</string>
     <string name="activity_desc">Description</string>
-    <string name="activity_location">Select Location</string>
+    <string name="activity_location">Location</string>
     <string name="upload_picture">Image</string>
     <string name="create_activity">Create</string>
     <string name="no_maps">Google Maps V2 not available!</string>
     <string name="title_activity_map">MapActivity</string>
     <string name="pick_location">Location</string>
     <string name="pick_date">Set Date</string>
+    <string name="date_picker">Date</string>
+    <string name="time_picker">time</string>
+
     <string name="login">enter</string>
     <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="next">Next</string>
     <string name="sign_out">Sign Out</string>
     <string name="profile">Edit Profile</string>
     <string name="action_search">search</string>
-    <string name="create_new">New Actvity</string>
+    <string name="create_new">Organize an Activity</string>
     <string name="search_title">Search Activity1</string>
     <string name="title_activity_activity_search_results">activity_search_results</string>
     <string name="title_activity_edit_profile">EditProfile</string>
@@ -50,5 +55,53 @@
     <string name="message_user_joined">%s joined</string>
     <string name="message_user_left">%s left</string>
     <string name="user_action_typing">is typing</string>
+    <string name="title_activity_preference">PreferenceActivity</string>
+    <string name="rsvp">Join</string>
+    <string name="withdraw">Withdraw</string>
+
+    <string name="Share">Share</string>
+    <string name="Or">OR</string>
+    <string name="distance_willing">Distance willing to travel</string>
+    <string name="about_self">A word about yourself</string>
+    <string name="discover">Discover</string>
+    <string name="activity_feed">Activity Feed</string>
+    <string name="near_me">Happening Near Me</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="menu">Menu</string>
+    <string-array name="drawer_tabs">
+        <item>My Feed</item>
+        <item>Search</item>
+        <item>Whats Hot?</item>
+        <item>My Events</item>
+        <item>Organize</item>
+    </string-array>
+
+    <string name="thumbnail">Thumbnail</string>
+    <string name="poster">Poster</string>
+    <string name="add_to_playlist">Add to playlist</string>
+    <string name="imdb">IMDb</string>
+    <string name="download">Download</string>
+    <string name="seen">Seen</string>
+    <string name="directors">Directors:</string>
+    <string name="cast">Cast</string>
+    <string name="additional_cast">Additional cast</string>
+    <string name="max_rating_video">/10</string>
+    <string name="location_text">Type Location</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="yourRsvp">Going</string>
+    <string name="manage">Manage</string>
+    <string name="save">save</string>
+    <string name="from_time_picker">from</string>
+    <string name="to_time_picker">to</string>
+    <string name="no_internet_string">No Internet Connection</string>
+    <string name="refresh">refresh</string>
+    <string name="share">Share</string>
+
+    <string name="title_activity_fullscreen_image">FullscreenImageActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

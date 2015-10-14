@@ -1,122 +1,248 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout   xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    tools:context="firstapp.ashley.com.firstapp.EventDetail"
-    tools:ignore="MergeRootFrame">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
 
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView  android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context=".MainActivity"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        tools:context="firstapp.ashley.com.firstapp.EventDetail"
+        tools:ignore="MergeRootFrame">
 
-        <EditText
-
-            android:layout_height="50dp"
-            android:id="@+id/edit_title"
-            android:hint="@string/activity_title"
-            android:singleLine="true"
-            android:inputType="textCapWords"
-            style="@style/EditTextDefaultStyle" />
-
-        <EditText
-            android:layout_height="150dp"
-            android:layout_below="@+id/edit_title"
-            android:hint="@string/activity_desc"
-            android:id="@+id/edit_desc"
-            style="@style/EditTextDefaultStyle" />
-
-        <EditText
-            android:layout_height="50dp"
-            android:layout_below="@+id/edit_desc"
-            android:id="@+id/edit_date"
-            android:text="@string/pick_date"
-            style="@style/EditTextDefaultStyle" />
-
-        <EditText
-            android:layout_height="50dp"
-            android:layout_below="@+id/edit_date"
-            android:id="@+id/editPhone"
-            android:inputType="phone"
-            android:maxLength="10"
-            android:clickable="true"
-            android:hint="Phone"
-            style="@style/EditTextDefaultStyle" />
-
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/pick_icons"
-            android:layout_below="@+id/editPhone"
-            android:layout_width="wrap_content"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:background="?attr/contentBackgroundColor">
 
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/pick_photo_icons"
-                android:orientation="horizontal"
-                style="@style/PickerDefaultStyle"
-                android:onClick="pickPhoto">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".MainActivity"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/selectImage"
-                    style="@style/TextViewDefaultStyle.Black" />
+                    android:id="@+id/validaitonText"
+                    android:layout_gravity="center_horizontal"
+                    style="@style/TextViewDefaultStyle.Red" />
 
-                <TextView
-                    android:text="@string/upload_picture"
-                    android:layout_width="wrap_content"
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/fTitleLayout"
+                    style="@style/TextInputLayout">
+
+
+                    <EditText
+
+                        android:layout_height="50dp"
+                        android:id="@+id/edit_title"
+                        android:hint="@string/activity_title"
+                        android:singleLine="true"
+                        android:ems="10"
+                        android:inputType="textCapWords"
+                        android:layout_width="match_parent"
+                        style="@style/TextAppearance.Media.Title" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/fDescLayout"
+                    style="@style/TextInputLayout">
+
+                    <EditText
+                        android:layout_height="100dp"
+                        android:layout_below="@+id/edit_title"
+                        android:hint="@string/activity_desc"
+                        android:lines="4"
+                        android:minLines="2"
+                        android:gravity="top|left"
+                        android:ems="10"
+                        android:inputType="textMultiLine"
+                        android:scrollbars="vertical"
+                        android:maxLines="20"
+                        android:id="@+id/edit_desc"
+                        android:layout_width="match_parent"
+                        style="@style/TextAppearance.Media.Title" />
+                </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/selectImageText"
-                    android:layout_toEndOf="@+id/selectImage"
-                    style="@style/TextViewDefaultStyle.Black" />
-            </RelativeLayout>
+                    android:orientation="horizontal"
+                    android:weightSum="4">
 
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/pick_location_icons"
-                android:layout_toEndOf="@+id/pick_photo_icons"
-                style="@style/PickerDefaultStyle"
-                android:orientation="horizontal">
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/fDateLayout"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        style="@style/TextInputLayout">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pick_location"
-                    style="@style/TextViewDefaultStyle.Black" />
 
-                <TextView
-                    android:text="@string/activity_location"
-                    android:layout_toEndOf="@+id/pick_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pick_location_text"
-                    style="@style/TextViewDefaultStyle.Black" />
-            </RelativeLayout>
-        </RelativeLayout>
+                        <EditText
+                            android:id="@+id/date_picker"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:layout_weight="1"
+                            android:gravity="left|center_vertical"
+                            android:hint="@string/date_picker"
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/pick_icons"
-            android:id="@+id/create_btn"
-            android:text="@string/create_activity"
-            style="@style/ButtonDefaultStyle" />
+                            style="@style/TextAppearance.Media.Subtitle" />
+                    </android.support.design.widget.TextInputLayout>
 
-        <ImageView
-            android:layout_below="@+id/create_btn"
-            android:id="@+id/actImage"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-</ScrollView>
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/fTimeLayout"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                       style="@style/TextInputLayout">
+
+
+                        <EditText
+                            android:id="@+id/time_picker"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:onClick="showDatePickerDialog"
+                            android:gravity="left|center_vertical"
+                            android:hint="@string/from_time_picker"
+
+                            style="@style/TextAppearance.Media.Subtitle" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/end_time_layout"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        style="@style/TextInputLayout">
+
+
+                        <EditText
+                            android:id="@+id/end_time_picker"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:onClick="showDatePickerDialog"
+                            android:gravity="left|center_vertical"
+                            android:hint="@string/to_time_picker"
+
+                            style="@style/TextAppearance.Media.Subtitle" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/fPhoneLayout"
+                    style="@style/TextInputLayout">
+                    <Spinner
+                        android:id="@+id/type_spinner"
+                        android:layout_below="@+id/dpResult"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.Media.Title" />
+
+                </android.support.design.widget.TextInputLayout>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/view_bar"
+                    style="@style/TextInputLayout"
+                    />
+
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/pick_location_icons"
+                    style="@style/TextInputLayout"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:hint="@string/activity_location"
+                        android:layout_toRightOf="@+id/pick_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pick_location_text"
+                        android:drawableLeft="@drawable/ic_location_on_black_24dp"
+
+                        style="@style/TextAppearance.Media.Title" />
+
+                    <ImageView
+                        android:id="@+id/actMap"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/now_playing_poster_height"
+                        android:layout_alignParentStart="true"
+                        android:contentDescription="@string/poster"
+                        android:scaleType="centerCrop" />
+
+
+
+                </LinearLayout>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/view_bar"
+                    style="@style/TextInputLayout"
+                    />
+
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/pick_photo_icons"
+                    style="@style/TextInputLayout"
+                    android:layout_marginStart="10dp"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:hint="@string/upload_picture"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/selectImageText"
+                        android:onClick="pickPhoto"
+                        android:drawableLeft="@drawable/ic_camera_alt_black_24dp"
+
+                        style="@style/TextAppearance.Media.Title" />
+
+                    <ImageView
+                        android:id="@+id/actImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/now_playing_poster_height"
+                        android:layout_alignParentStart="true"
+                        android:contentDescription="@string/poster"
+                        android:scaleType="center"
+                        android:layout_gravity="left"
+                        android:onClick="pickPhoto" />
+
+                </LinearLayout>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/view_bar"
+                    style="@style/TextInputLayout"
+                    />
+
+                <com.innovation.me2there.views.morphingbutton.impl.IndeterminateProgressButton
+                    android:layout_below="@+id/pick_icons"
+                    android:id="@+id/create_btn"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/create_activity"
+                    style="@style/ButtonDefaultStyle" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="grid_column_count">2</integer>
+    <integer name="cast_grid_view_columns">3</integer>
+
+
+    <integer name="mb_animation">500</integer>
+
 </resources>

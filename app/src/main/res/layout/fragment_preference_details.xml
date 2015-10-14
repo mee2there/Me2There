@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.innovation.me2there.fragments.PreferenceTopicsFragment"
+    android:orientation="vertical"
+    android:background="?attr/contentBackgroundColor">
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/distance_prompt_text"
+        android:paddingLeft="@dimen/default_padding"
+        android:text="@string/distance_willing"
+        style="@style/TextAppearance.Media.Title" />
+
+    <TextView
+        android:id="@+id/distance_text"
+        android:layout_width="wrap_content"
+        android:paddingLeft="@dimen/double_padding"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.Media.Subtitle" />
+    <com.innovation.me2there.views.RangeBar
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/rangebar"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        custom:tickStart="5"
+        custom:tickInterval="5"
+        custom:tickEnd="100"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/about_prompt_text"
+        android:paddingLeft="@dimen/default_padding"
+        android:text="@string/about_self"
+        style="@style/TextAppearance.Media.Title" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/fTitleLayout"
+        style="@style/TextInputLayout">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="4"
+        android:minLines="6"
+        android:gravity="top|left"
+        android:maxLines="10"
+        android:id="@+id/about_self"
+        style="@style/TextAppearance.Media.Title">
+        <requestFocus />
+    </EditText>
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
