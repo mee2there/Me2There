@@ -9,8 +9,8 @@
     <color name="orange">#ffffdc7e</color>
     <color name="grey">#696969</color>
     <color name="light_grey">#1A000000</color>
+    <color name="lighter_grey">#EEEEEE</color>
     <color name="green">#ff8dd304</color>
-    <color name="blue">#191970</color>
     <color name="light_blue">#ff009eca</color>
     <color name="yellow">#fffffbae</color>
     <color name="red">#fff10800</color>
@@ -57,8 +57,12 @@
     </array>
 
 
-    <color name="colorPrimary">#03A9F4</color>
-    <color name="colorPrimaryDark">#0288D1</color>
+    <color name="colorPrimaryDark">#ff1976d1</color>
+    <color name="colorPrimary">#ff2195f2</color>
+
+    <color name="blue_dark">#ff1976d1</color>
+    <color name="blue">#ff2195f2</color>
+
     <color name="colorPrimaryLight">#B3E5FC</color>
     <color name="colorAccent">#FF9800</color>
     <color name="colorHighlight">#B6B6B6</color>
@@ -90,6 +94,12 @@
     <color name="holo_red_light">#ffff4444</color>
 
     <color name="black_overlay">#66000000</color>
+
+
+    <color name="default_shadow_color">#88757575</color>
+    <color name="default_fill_color">#ffffff</color>
+    <color name="shadow">#AA000000</color>
+    <color name="background">#ff333333</color>
 
 
 </resources>

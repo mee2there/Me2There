@@ -16,6 +16,8 @@
 -->
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+
         <item name="appTextColorPrimary">@color/black_dim_87pct</item>
         <item name="appTextColorSecondary">@color/black_dim_54pct</item>
         <item name="contentBackgroundColor">@color/light_content_background_dim_70pct</item>

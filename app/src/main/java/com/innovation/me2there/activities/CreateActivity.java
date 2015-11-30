@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -367,7 +366,7 @@ public class CreateActivity extends Mee2ThereActivity {
                 //.duration(integer(R.integer.mb_animation))
                 //.cornerRadius(dimen(R.dimen.mb_height_56))
                 //.width(dimen(R.dimen.mb_height_56))
-                .height(dimen(R.dimen.mb_height_56))
+                .height(dimen(R.dimen.mb_height_26))
                 .color(color(R.color.mb_red))
                 .colorPressed(color(R.color.mb_red_dark));
                 //.icon(R.drawable.ic_done);

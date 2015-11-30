@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -72,7 +71,13 @@ public class FragmentDrawer extends Fragment {
     public List<Information> getData() {
         //load only static data inside a drawer
         List<Information> data = new ArrayList<>();
-        int[] icons = {R.drawable.ic_action_feed_orange, R.drawable.ic_action_search_orange, R.drawable.ic_action_trending_orange, R.drawable.ic_myevents_orange,R.drawable.ic_organize};
+        int[] icons = {
+                R.drawable.ic_action_feed_orange,
+                R.drawable.ic_action_trending_orange,
+                R.drawable.ic_action_search_orange,
+                R.drawable.ic_myevents_orange,
+                R.drawable.ic_organize
+        };
         String[] titles = getResources().getStringArray(R.array.drawer_tabs);
         for (int i = 0; i < titles.length; i++) {
             Information information = new Information();
@@ -131,7 +136,7 @@ public class FragmentDrawer extends Fragment {
                     Mee2ThereApplication.saveToPreferences(getActivity(), KEY_USER_LEARNED_DRAWER, mUserLearnedDrawer);
                 }
                 Activity act = getActivity();
-                if(act != null) {
+                if (act != null) {
                     getActivity().supportInvalidateOptionsMenu();
                 }
             }

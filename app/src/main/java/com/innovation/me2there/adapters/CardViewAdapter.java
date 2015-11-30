@@ -119,9 +119,16 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
             viewHolder.mImage.setImageBitmap(eventImage);
 
         }
-        viewHolder.eventDate.setText(String.valueOf(DateUtil.getMonth(event.getEventTime().getMonth()))+" "+event.getEventTime().getDate());
+        String eventDate = String.valueOf(DateUtil.getMonth(event.getEventTime().getMonth()))+" "+event.getEventTime().getDate();
+        String eventTime = DateUtil.getTimeAsText(event.getEventTime());
+
+        if (event.getEventEndTime() != null) {
+            eventTime =  eventTime + " - "+String.valueOf(DateUtil.getTimeAsText(event.getEventEndTime()));
+
+        }
+        viewHolder.eventDate.setText(eventDate+" "+eventTime);
         viewHolder.locationText.setText(event.getShortLocText());
-        viewHolder.participantsCount.setText(String.valueOf(event.noOfParticipants())+" participants");
+        viewHolder.participantsCount.setText(String.valueOf(event.noOfParticipants()));
         if(event.isUserCreateUser()) {
             viewHolder.yourRsvp.setText(R.string.manage);
 

@@ -1,8 +1,6 @@
 package com.innovation.me2there.activities;
 
-import android.app.Fragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -12,7 +10,6 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.view.ActionMode;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,46 +19,33 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.innovation.me2there.R;
-import com.innovation.me2there.activities.ChatActivity;
-import com.innovation.me2there.activities.Mee2ThereActivity;
 import com.innovation.me2there.adapters.CardViewAdapter;
-import com.innovation.me2there.adapters.ParticipantCardAdapter;
 import com.innovation.me2there.db.DataStore;
 import com.innovation.me2there.fragments.Mee2ThereCardFragmentBase;
 import com.innovation.me2there.model.EventDetailVO;
 import com.innovation.me2there.model.UserVO;
 import com.innovation.me2there.others.Mee2ThereApplication;
 import com.innovation.me2there.util.DateUtil;
-import com.innovation.me2there.util.FragmentUtil;
 import com.innovation.me2there.util.ImageUtil;
 import com.innovation.me2there.util.LocationUtil;
+import com.innovation.me2there.views.GradientOverImageDrawable;
 import com.innovation.me2there.views.morphingbutton.MorphingButton;
-import com.melnykov.fab.FloatingActionButton;
-import com.melnykov.fab.ObservableScrollView;
-import com.squareup.leakcanary.RefWatcher;
-import com.squareup.picasso.Picasso;
 
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
+import org.apache.commons.collections4.IteratorUtils;
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
@@ -174,6 +158,10 @@ public class EventDetail extends Mee2ThereActivity {
         ImageView activityImage;
         @Bind(R.id.media_panel_group)
         LinearLayout eventDetailLayout;
+
+        @Bind(R.id.horizontal_user_view)
+        RecyclerView userHorizontalView;
+
         @Bind(R.id.map_poster)
         ImageView staticMap;
         @Bind(R.id.event_name)
@@ -185,7 +173,7 @@ public class EventDetail extends Mee2ThereActivity {
         @Bind(R.id.location_text)
         TextView locationText;
         @Bind(R.id.goto_chat)
-        Button chatButton;
+        ImageView chatButton;
         @Bind(R.id.event_year)
         TextView eventYear;
         @Bind(R.id.event_month)
@@ -198,7 +186,7 @@ public class EventDetail extends Mee2ThereActivity {
         TextView endTime;
 
         @Bind(R.id.no_of_participants)
-        Button noOfParticipants;
+        TextView noOfParticipants;
 
         @Bind(R.id.rsvp_morph_button)
         MorphingButton rsvpMorphButton;
@@ -239,12 +227,23 @@ public class EventDetail extends Mee2ThereActivity {
             } else {
                 endTime.setVisibility(View.INVISIBLE);
             }
-            noOfParticipants.setText(String.valueOf(event.noOfParticipants()) + " participants");
+            noOfParticipants.setText(String.valueOf(event.noOfParticipants()) );
             Bitmap image = event.getThumbNailEventImage();
 
 
             if (image != null) {
-                activityImage.setImageBitmap(image);
+                //activityImage.setImageBitmap(image);
+
+
+                //Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.house);
+                int gradientStartColor = Color.argb(0, 0, 0, 0);
+                int gradientEndColor = Color.argb(255, 0, 0, 0);
+                GradientOverImageDrawable gradientDrawable = new GradientOverImageDrawable(getResources(), image);
+                gradientDrawable.setGradientColors(gradientStartColor, gradientEndColor);
+
+                activityImage.setImageDrawable(gradientDrawable);
+
+
             }
 //            mediaPanel.setOnTouchListener(new View.OnTouchListener() {
 //                @Override
@@ -269,13 +268,13 @@ public class EventDetail extends Mee2ThereActivity {
             initGoingButton(rsvpMorphButton);
             MorphingButton.Params square = MorphingButton.Params.create()
                     .cornerRadius(dimen(R.dimen.mb_corner_radius_2))
-                    .width(dimen(R.dimen.mb_width_120))
+                    //.width(dimen(R.dimen.mb_width_120))
 
-                    .height(dimen(R.dimen.mb_height_56))
-                    .color(color(R.color.mb_blue))
+                    //.height(dimen(R.dimen.mb_height_56))
+                    //.color(color(R.color.mb_blue))
                     .colorPressed(color(R.color.mb_blue_dark))
-                    .icon(R.drawable.ic_share_white_24dp)
-                    .text(getString(R.string.share));
+                    .icon(R.drawable.ic_share_white_24dp);
+                    //.text(getString(R.string.share));
             shareMorphButon.morph(square);
 
             shareMorphButon.setOnClickListener(new View.OnClickListener() {
@@ -308,20 +307,21 @@ public class EventDetail extends Mee2ThereActivity {
                 }
             });
             if(event.get_latitude() != null && event.get_longitude() != null) {
-                locationText.setText(LocationUtil.getShortAddressFromLocation(event.get_latitude(), event.get_longitude(), this.getActivity()));
+                locationText.setText(LocationUtil.getVeryShortAddressFromLocation(event.get_latitude(), event.get_longitude(), this.getActivity()));
             }
-            participantViews = new ArrayList<UserViewHolder>();
-            if (event.get_participantsObjIds() != null) {
-                for (String user : event.get_participantsObjIds()) {
-                    View v = LayoutInflater.from(getActivity()).inflate(R.layout.participant_card, container, false);
-                    UserViewHolder pvh = new UserViewHolder(v);
-                    participantViews.add(pvh);
 
-                    eventDetailLayout.addView(v);
+            //userHorizontalView = (RecyclerView) rootView.findViewById(R.id.custom_list);
 
+            userHorizontalView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            userHorizontalView.setItemAnimator(new DefaultItemAnimator());
 
-                }
-            }
+            final LinearLayoutManager mLayoutManager;
+            mLayoutManager =
+                    //        new LinearLayoutManager(getActivity());
+                    new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+
+            userHorizontalView.setLayoutManager(mLayoutManager);
+
             getStaticMap(event.get_latitude(), event.get_longitude());
             getEventParticipants(event);
             getEventImage(event);
@@ -329,7 +329,48 @@ public class EventDetail extends Mee2ThereActivity {
             return rootView;
         }
 
-        private void toggleRsvp(final MorphingButton btnMorph) {
+        public class HorizontalViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+            List<String> mUserViews ;
+            private int rowLayout;
+
+
+            public HorizontalViewAdapter(List<String> userViews,int inRowLayout) {
+                if(userViews!= null) {
+                    this.mUserViews = userViews;
+
+                }
+                this.rowLayout = inRowLayout;
+
+
+            }
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                View v = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
+                return new RecyclerView.ViewHolder(v) {
+                    @Override
+                    public String toString() {
+                        return super.toString();
+                    }
+                };
+            }
+
+            @Override
+            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+                TextView userNameView = (TextView)holder.itemView.findViewById(R.id.person_name);
+                userNameView.setText(mUserViews.get(position));
+                ImageView personPhoto = (ImageView) holder.itemView.findViewById(R.id.person_photo);
+                personPhoto.setImageBitmap(event.getThumbNailEventImage());
+
+
+            }
+
+            @Override
+            public int getItemCount() {
+                return mUserViews.size();
+            }
+        }
+            private void toggleRsvp(final MorphingButton btnMorph) {
             if (hasUserJoined) {
                 hasUserJoined = false;
                 morphToSquare(btnMorph, integer(R.integer.mb_animation));
@@ -357,9 +398,9 @@ public class EventDetail extends Mee2ThereActivity {
         private void morphToSquare(final MorphingButton btnMorph, int duration) {
             MorphingButton.Params square = MorphingButton.Params.create()
                     .duration(duration)
-                    .cornerRadius(dimen(R.dimen.mb_corner_radius_2))
-                    .width(dimen(R.dimen.mb_width_120))
-                    .height(dimen(R.dimen.mb_height_56))
+                    .cornerRadius(dimen(R.dimen.mb_height_26))
+                    .width(dimen(R.dimen.mb_width_80))
+                    .height(dimen(R.dimen.mb_height_26))
                     .color(color(R.color.mb_red))
                     .colorPressed(color(R.color.mb_red_dark))
                     .text(getString(R.string.rsvp));
@@ -369,13 +410,13 @@ public class EventDetail extends Mee2ThereActivity {
         private void morphToSuccess(final MorphingButton btnMorph) {
             MorphingButton.Params circle = MorphingButton.Params.create()
                     .duration(integer(R.integer.mb_animation))
-                    .cornerRadius(dimen(R.dimen.mb_height_56))
-                    .width(dimen(R.dimen.mb_width_120))
-                    .height(dimen(R.dimen.mb_height_56))
+                    .cornerRadius(dimen(R.dimen.mb_height_26))
+                    .width(dimen(R.dimen.mb_width_80))
+                    .height(dimen(R.dimen.mb_height_26))
                     .color(color(R.color.mb_green))
                     .colorPressed(color(R.color.mb_green_dark))
-                    .icon(R.drawable.ic_done)
-                    .text("Going");
+                    .icon(R.drawable.ic_done);
+                    //.text("Going");
             btnMorph.morph(circle);
         }
 
@@ -516,19 +557,40 @@ public class EventDetail extends Mee2ThereActivity {
                 Log.d("EventDetail", "ParticipantsFetchTask : on post execute ");
 
                 super.onPostExecute(participants);
+/*
+                participantViews = new ArrayList<UserViewHolder>();
+                if (event.get_participantsObjIds() != null) {
+                    for (String user : event.get_participantsObjIds()) {
+                        View v = LayoutInflater.from(getActivity()).inflate(R.layout.participant_card, container, false);
+                        UserViewHolder pvh = new UserViewHolder(v);
+                        participantViews.add(pvh);
+
+                        //userHorizontalView.addView(v);
+
+
+                    }
+
+                }*/
 
                 // Create a LinearLayout element
                 // LinearLayout ll = new LinearLayout(activityContext);
                 //ll.setOrientation(LinearLayout.VERTICAL);
                 int indx = 0;
+                List<String> userNames = new ArrayList<String>();
                 for (UserVO user : participants) {
                     // Add text
-                    if (indx < participantViews.size()) {
-                        participantViews.get(indx).getPersonName().setText(user.get_userFullName());
-                        indx++;
-                    }
+                    //if (indx < participantViews.size()) {
+                        userNames.add(user.get_userFullName());
+                    //    participantViews.get(indx).getPersonName().setText(user.get_userFullName());
+                    //    indx++;
+                   // }
 
                 }
+                HorizontalViewAdapter mAdapter = new HorizontalViewAdapter(userNames, R.layout.participant_card);
+                if(userHorizontalView!=null) {
+                    userHorizontalView.setAdapter(mAdapter);
+                }
+
                 //  mediaPanel.removeView(eventDetailLayout);
                 // Display the view
                 // getActivity().setContentView(eventDetailLayout);
@@ -559,14 +621,14 @@ public class EventDetail extends Mee2ThereActivity {
     }
 
     public static class UserViewHolder {
-        CardView cv;
+        //CardView cv;
         TextView personName;
         TextView personAge;
         ImageView personPhoto;
 
         UserViewHolder(View itemView) {
             //super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.cv);
+            //cv = (CardView) itemView.findViewById(R.id.cv);
             personName = (TextView) itemView.findViewById(R.id.person_name);
             personAge = (TextView) itemView.findViewById(R.id.person_age);
             personPhoto = (ImageView) itemView.findViewById(R.id.person_photo);

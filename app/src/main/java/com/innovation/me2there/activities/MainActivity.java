@@ -2,17 +2,22 @@ package com.innovation.me2there.activities;
 
 
 import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.google.android.gms.maps.model.LatLng;
 import com.innovation.me2there.adapters.MainFragmentAdapter;
 import com.innovation.me2there.R;
@@ -35,7 +41,6 @@ import com.innovation.me2there.db.DataStore;
 import com.innovation.me2there.model.EventDetailVO;
 import com.innovation.me2there.util.GoogleMapTask;
 
-import java.util.List;
 import java.util.Set;
 
 import com.innovation.me2there.fragments.FragmentDrawer;
@@ -43,17 +48,12 @@ import com.innovation.me2there.extras.SortListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import it.neokree.materialtabs.MaterialTab;
-import it.neokree.materialtabs.MaterialTabHost;
-import it.neokree.materialtabs.MaterialTabListener;
 
-//import android.support.v7.app.ActionBar;
 
 public class MainActivity extends Mee2ThereActivity implements
         AbsListView.OnScrollListener,
         AbsListView.OnItemClickListener,
         AdapterView.OnItemLongClickListener,
-        MaterialTabListener,
         View.OnClickListener{
     //tag associated with the FAB menu button that sorts by name
     private static final String TAG_SORT_NAME = "sortName";
@@ -64,10 +64,8 @@ public class MainActivity extends Mee2ThereActivity implements
 
     private ViewPager viewPager;
     private ActionBar actionBar;
-    // Tab titles
-    private String[] tabs = {"Discover", "Manage"};
     private GoogleMapTask mapTask;
-    private MaterialTabHost mTabHost;
+    //private MaterialTabHost mTabHost;
     private Toolbar mToolbar;
     protected ViewGroup mContainerToolbar;
     private FragmentDrawer mDrawerFragment;
@@ -88,6 +86,9 @@ public class MainActivity extends Mee2ThereActivity implements
     private FloatingActionButton mFAB;
     private FloatingActionMenu mFABMenu;
     protected MainFragmentAdapter mAdapter;
+    private PagerSlidingTabStrip tabs;
+    private Drawable oldBackground = null;
+    private final Handler handler = new Handler();
 
 
     @Bind(R.id.app_bar_button) TextView appBarButton;
@@ -119,24 +120,38 @@ public class MainActivity extends Mee2ThereActivity implements
         String facebookId =intent.getStringExtra(SignInActivity.FB_ID);
 
 
-        mAdapter = new MainFragmentAdapter(getSupportFragmentManager(),this);
 
         viewPager = (ViewPager) findViewById(R.id.pager);
 
         final LinearLayout dashboardLayout = (LinearLayout) findViewById(R.id.setting_dashboard);
         dashboardLayout.setVisibility(View.INVISIBLE);
+        mAdapter = new MainFragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mAdapter);
 
-        /**
-         * on swiping the viewpager make respective tab selected
-         * */
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
+                .getDisplayMetrics());
+        viewPager.setPageMargin(pageMargin);
+
+
+        // Bind the tabs to the ViewPager
+        tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        tabs.setViewPager(viewPager);
+
+        //tabs.setIndicatorColor(R.color.colorPrimary);
+        //tabs.setIndicatorHeight(10);
+
+        ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageSelected(int position) {
+                Log.d(TAG, "ViewPager onPageSelected");
+
+                //changeColor(R.color.colorPrimary);
+                //viewPager.setCurrentItem(position);
+                tabs.notifyDataSetChanged();
                 // on changing the page
                 // make respected tab selected
-                //actionBar.setSelectedNavigationItem(position);
+                //getSupportActionBar().setSelectedNavigationItem(position);
 /*
 
                 mAdapter.getItem(position);
@@ -153,12 +168,24 @@ public class MainActivity extends Mee2ThereActivity implements
 
             @Override
             public void onPageScrolled(int arg0, float arg1, int arg2) {
+                Log.d(TAG, "ViewPager onPageScrolled");
+
             }
 
             @Override
             public void onPageScrollStateChanged(int arg0) {
+                Log.d(TAG, "ViewPager onPageScrollStateChanged");
+
             }
-        });
+        };
+
+        /**
+         * on swiping the viewpager make respective tab selected
+         * */
+
+        viewPager.setOnPageChangeListener(mPageChangeListener);
+        // continued from above
+        tabs.setOnPageChangeListener(mPageChangeListener);
 
         if(isInternetAvailable()) {
 
@@ -180,9 +207,10 @@ public class MainActivity extends Mee2ThereActivity implements
             noInternetToast();
 
         }
+
         setupFAB();
-        setupTabs();
         setupDrawer();
+        //changeColor(R.color.colorPrimary);
 
         //animate the Toolbar when it comes into the picture
        // AnimationUtils.animateToolbarDroppingDown(mContainerToolbar);
@@ -192,7 +220,7 @@ public class MainActivity extends Mee2ThereActivity implements
     protected void onResume() {
         super.onResume();
     }
-
+/*
     private void setupTabs() {
 
         mTabHost = (MaterialTabHost) findViewById(R.id.materialTabHost);
@@ -201,11 +229,12 @@ public class MainActivity extends Mee2ThereActivity implements
         for (int i = 0; i < mAdapter.getCount(); i++) {
             mTabHost.addTab(
                     mTabHost.newTab()
-                            .setIcon(mAdapter.getIcon(i))
+                            //.setIcon(mAdapter.getIcon(i))
+                            .setText(mAdapter.getTitle(i))
                             .setTabListener(this));
         }
 
-    }
+    }*/
 
     private void setupDrawer() {
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -222,11 +251,12 @@ public class MainActivity extends Mee2ThereActivity implements
     private void setupFAB() {
         //define the icon for the main floating action button
         ImageView iconFAB = new ImageView(this);
-        iconFAB.setImageResource(R.drawable.ic_create_black_24dp);
+        iconFAB.setImageResource(R.drawable.ic_add_black_24dp);
 
         //set the appropriate background for the main floating action button along with its icon
         mFAB = new FloatingActionButton.Builder(this)
                 .setContentView(iconFAB)
+                .setPosition(FloatingActionButton.POSITION_BOTTOM_LEFT)
                 .setBackgroundDrawable(R.drawable.selector_button_red)
                 .build();
         final Context theActivity = this;
@@ -241,6 +271,75 @@ public class MainActivity extends Mee2ThereActivity implements
         });
 
         }
+    private void changeColor(int newColor) {
+        //tabs.setIndicatorColor(R.color.white);
+
+
+        // change ActionBar color just if an ActionBar is available
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+
+            Drawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.colorPrimary));
+            Drawable bottomDrawable = getResources().getDrawable(R.drawable.actionbar_bottom);
+            LayerDrawable ld = new LayerDrawable(new Drawable[] { colorDrawable, bottomDrawable });
+
+            if (oldBackground == null) {
+
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    ld.setCallback(drawableCallback);
+                } else {
+                    //getSupportActionBar().setBackgroundDrawable(ld);
+                    getSupportActionBar().setBackgroundDrawable(ld);
+
+                }
+
+            } else {
+
+                TransitionDrawable td = new TransitionDrawable(new Drawable[] { oldBackground, ld });
+
+                // workaround for broken ActionBarContainer drawable handling on
+                // pre-API 17 builds
+                // https://github.com/android/platform_frameworks_base/commit/a7cc06d82e45918c37429a59b14545c6a57db4e4
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    td.setCallback(drawableCallback);
+                } else {
+                    //getSupportActionBar().setBackgroundDrawable(td);
+                    getSupportActionBar().setBackgroundDrawable(ld);
+
+                }
+
+                td.startTransition(200);
+
+            }
+
+            oldBackground = ld;
+
+            // http://stackoverflow.com/questions/11002691/actionbar-setbackgrounddrawable-nulling-background-from-thread-handler
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        }
+
+        //currentColor = newColor;
+
+    }
+    private Drawable.Callback drawableCallback = new Drawable.Callback() {
+        @Override
+        public void invalidateDrawable(Drawable who) {
+            getSupportActionBar().setBackgroundDrawable(who);
+        }
+
+        @Override
+        public void scheduleDrawable(Drawable who, Runnable what, long when) {
+            handler.postAtTime(what, when);
+        }
+
+        @Override
+        public void unscheduleDrawable(Drawable who, Runnable what) {
+            handler.removeCallbacks(what);
+        }
+    };
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -314,19 +413,20 @@ public class MainActivity extends Mee2ThereActivity implements
         Toast.makeText(this, "Item Long Clicked: " + position, Toast.LENGTH_SHORT).show();
         return true;
     }
-    @Override
-    public void onTabSelected(MaterialTab materialTab) {
-        //when a Tab is selected, update the ViewPager to reflect the changes
-        viewPager.setCurrentItem(materialTab.getPosition());
-    }
-    @Override
-    public void onTabReselected(MaterialTab materialTab) {
-        //when a Tab is selected, update the ViewPager to reflect the changes
-        viewPager.setCurrentItem(materialTab.getPosition());
-    }
-    @Override
-    public void onTabUnselected(MaterialTab materialTab) {
-    }
+//    @Override
+//    public void onTabSelected(MaterialTab materialTab) {
+//
+//        //when a Tab is selected, update the ViewPager to reflect the changes
+//        viewPager.setCurrentItem(materialTab.getPosition());
+//    }
+//    @Override
+//    public void onTabReselected(MaterialTab materialTab) {
+//        //when a Tab is selected, update the ViewPager to reflect the changes
+//        viewPager.setCurrentItem(materialTab.getPosition());
+//    }
+//    @Override
+//    public void onTabUnselected(MaterialTab materialTab) {
+//    }
     @Override
     public void onStop() {
         mapTask.disconnect();

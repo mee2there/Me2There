@@ -7,7 +7,7 @@
     android:paddingBottom="@dimen/default_padding"
     android:paddingLeft="@dimen/default_padding"
     android:orientation="horizontal"
-    android:background="?attr/contentBackgroundColor">
+    >
 
     <TextView
         android:id="@+id/event_year"
@@ -43,7 +43,6 @@
         android:paddingLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/event_year"
         android:layout_toRightOf="@id/event_date"
         style="@style/TextAppearance.Media.SmallDetails" />
 
@@ -52,21 +51,53 @@
         android:paddingLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/event_year"
-        android:layout_toRightOf="@id/start_time"
+        android:layout_below="@id/start_time"
+        android:layout_toRightOf="@id/event_date"
         style="@style/TextAppearance.Media.SmallDetails"
         android:text="12am" />
 
-    <TextView
-        android:id="@+id/location_text"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-
+    <ImageView
+        android:id="@+id/participants_count_image"
+        android:paddingStart="@dimen/default_padding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/event_year"
+        android:layout_toRightOf="@id/start_time"
+        android:src="@drawable/ic_group_black_24dp" />
 
+    <TextView
+        android:id="@+id/no_of_participants"
+        android:layout_toEndOf="@+id/participants_count_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Participants"
+        style="@style/TextAppearance.Media.SmallDetails"
+        />
+
+    <ImageView
+        android:id="@+id/goto_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/no_of_participants"
+        android:src="@drawable/ic_chat_black_24dp"
+        android:paddingLeft="@dimen/double_padding"
+        android:layout_marginRight="@dimen/double_padding"
+
+        />
+
+    <ImageView
+        android:id="@+id/location_text_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/location_text"
+        android:src="@drawable/ic_location_on_black_24dp" />
+
+    <TextView
+        android:id="@+id/location_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location"
+        android:layout_marginEnd="@dimen/small_padding"
         android:layout_alignParentRight="true"
         style="@style/TextAppearance.Media.SmallDetails"
-        android:drawableLeft="@drawable/ic_location_on_black_24dp" />
+        />
 </RelativeLayout>

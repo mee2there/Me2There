@@ -70,9 +70,9 @@
     <string name="drawer_close">Close</string>
     <string name="menu">Menu</string>
     <string-array name="drawer_tabs">
-        <item>My Feed</item>
-        <item>Search</item>
+        <item>Activity Feed</item>
         <item>Whats Hot?</item>
+        <item>Search</item>
         <item>My Events</item>
         <item>Organize</item>
     </string-array>

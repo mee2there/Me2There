@@ -4,10 +4,13 @@
     android:paddingTop="2dp"
     >
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cv"
+        android:layout_margin="@dimen/very_small_padding"
+        android:padding="@dimen/small_padding"
+        android:background="@drawable/with_shadow"
         >
 
         <RelativeLayout
@@ -15,12 +18,13 @@
             android:layout_height="wrap_content"
             >
 
-            <ImageView
+            <com.innovation.me2there.views.RoundedImageView
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/person_photo"
                 android:src="@drawable/ic_account_circle_black_24dp"
-                android:layout_alignParentLeft="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="16dp"
                 />
@@ -29,8 +33,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/person_name"
-                android:layout_toRightOf="@+id/person_photo"
-                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/person_photo"
+                android:text="Name"
                 style="@style/TextAppearance.Media.Subtitle"
                 />
 
@@ -46,6 +51,6 @@
 
         </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
+    </LinearLayout>
 
 </LinearLayout>

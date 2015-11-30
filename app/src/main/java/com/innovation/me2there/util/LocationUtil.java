@@ -54,6 +54,7 @@ public class LocationUtil {
                     latitude, longitude, 1);
             if (addressList != null && addressList.size() > 0) {
                 Address address = addressList.get(0);
+
                 StringBuilder sb = new StringBuilder();
                 for (int i = 1; i < address.getMaxAddressLineIndex(); i++) {
                     sb.append(address.getAddressLine(i)).append("\n");
@@ -89,7 +90,8 @@ public class LocationUtil {
                 for (int i = 1; i < address.getMaxAddressLineIndex(); i++) {
                     sb.append(address.getAddressLine(i)).append("\n");
                 }
-                result = StringUtil.parseCSV(sb.toString())[0];
+                String[] parsedAddress = StringUtil.parseCSV(sb.toString());
+                result = parsedAddress[0];
 
 
             }

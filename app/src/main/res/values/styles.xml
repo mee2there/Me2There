@@ -324,7 +324,7 @@
 
     <style name="TextAppearance.Media.Title">
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
-        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
         <item name="android:maxLines">2</item>
     </style>
 
@@ -424,6 +424,14 @@
         <item name="android:textColor">@android:color/black</item>
         <item name="android:background">@drawable/chat_bubble</item>
     </style>
+
+    <declare-styleable name="ShadowLayout">
+        <attr name="sl_cornerRadius" format="dimension"/>
+        <attr name="sl_shadowRadius" format="dimension"/>
+        <attr name="sl_shadowColor" format="color"/>
+        <attr name="sl_dx" format="dimension"/>
+        <attr name="sl_dy" format="dimension"/>
+    </declare-styleable>
 
 
 </resources>

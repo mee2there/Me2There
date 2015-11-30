@@ -461,7 +461,7 @@ public class DataStore {
                     return fullRes;
 
                 } else {
-                    Log.d("DEBUG", "HTTP Fail, Response Code: " + statusCode);
+                    Log.d("postImage", "HTTP Fail, Response Code: " + statusCode);
                     return null;
 
                 }
@@ -541,7 +541,7 @@ public class DataStore {
 
 
                 } else {
-                    Log.d("DEBUG", "HTTP Fail, Response Code: " + statusCode);
+                    Log.d("createEvent", "HTTP Fail, Response Code: " + statusCode);
                     return null;
 
                 }
@@ -586,7 +586,7 @@ public class DataStore {
                 return true;
 
             } else {
-                Log.d("DEBUG", "RSVP HTTP Fail, Response Code: " + statusCode);
+                Log.d("rsvpEvent", "RSVP HTTP Fail, Response Code: " + statusCode);
                 return false;
 
             }
@@ -656,7 +656,7 @@ public class DataStore {
 
 
             } else {
-                Log.d("DEBUG", "HTTP Fail, Response Code: " + statusCode);
+                Log.d("verifyUser", "HTTP Fail, Response Code: " + statusCode);
                 return null;
 
             }
@@ -734,7 +734,7 @@ public class DataStore {
 
 
             } else {
-                Log.d("DEBUG", "HTTP Fail, Response Code: " + statusCode);
+                Log.d("loginUser", "HTTP Fail, Response Code: " + statusCode);
                 return null;
 
             }
@@ -871,7 +871,7 @@ public class DataStore {
 
 
             } else {
-                Log.d("DEBUG", "HTTP Fail, Response Code: " + statusCode);
+                Log.d("createUser", "HTTP Fail, Response Code: " + statusCode);
                 return null;
 
             }
@@ -922,7 +922,7 @@ public class DataStore {
                 return fullRes;
 
             } else {
-                Log.d("DEBUG", "HTTP Fail, Response Code: " + statusCode);
+                Log.d("updateUser", "HTTP Fail, Response Code: " + statusCode);
                 return null;
 
             }

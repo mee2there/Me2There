@@ -18,18 +18,14 @@ import com.innovation.me2there.fragments.MyEventsFragment;
 
 
 public class MainFragmentAdapter extends FragmentPagerAdapter {
-    private Context _context;
 
     DiscoverEventsFragment mainFragment;
     MyEventsFragment myEventsFragment;
     GoingEventsFragment goingEventsFragment;
-    int icons[] = {
-            R.drawable.ic_action_trending,
-            R.drawable.ic_action_feed,
-            R.drawable.ic_myevents,
-            R.drawable.ic_action_search
-    };
 
+    String tabTitles[] = {
+            "Activity Feed",
+            "Whats Hot"};
     public DiscoverEventsFragment getMainFragment() {
         return mainFragment;
     }
@@ -43,13 +39,17 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
     }
 
 
-    public MainFragmentAdapter(FragmentManager fm,Context c) {
+    public MainFragmentAdapter(FragmentManager fm) {
         super(fm);
         mainFragment = new DiscoverEventsFragment();
         myEventsFragment = new MyEventsFragment();
         goingEventsFragment = new GoingEventsFragment();
-        _context = c;
 
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return tabTitles[position];
     }
 
     @Override
@@ -74,12 +74,6 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // get item count - equal to number of tabs
-        return 3;
+        return 2;
     }
-
-    public Drawable getIcon(int position) {
-
-        return _context.getResources().getDrawable(icons[position]);
-    }
-
 }

@@ -28,6 +28,10 @@
             android:id="@+id/custom_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/light_grey"
+            android:elevation="@dimen/default_padding"
+            android:layout_marginRight="@dimen/very_small_padding"
+            android:layout_marginLeft="@dimen/very_small_padding"
             android:divider="#E6E6E6"
             tools:context=".MainActivity" />
     </LinearLayout>
